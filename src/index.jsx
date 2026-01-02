@@ -31,6 +31,7 @@ export default function MemoryBook() {
       </div>
 
       <Center h="100vh">
+      <Box style={{ position: "relative", display: "flex", alignItems: "center" }}>
         <Container>
           <HTMLFlipBook
             width={isMobile ? 300 : 400}
@@ -89,7 +90,224 @@ export default function MemoryBook() {
             </ActionIcon>
           </Group>
         </Container>
+        {/* 🧸 Teddy Pencil */}
+    {!isMobile && (
+      <Box
+        style={{
+          marginLeft: 60,
+          pointerEvents: "none",
+        }}
+      >
+        <TeddyPencil />
+      </Box>
+    )}
+        </Box>
       </Center>
     </Box>
 );
+}
+function TeddyPencil() {
+  return (
+    <motion.div
+      animate={{ y: [0, -6, 0] }}
+      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      style={{ width: 120 }}
+    >
+      <Box style={{ position: "relative", width: 120, margin: "0 auto" }}>
+
+        {/* 🧸 HEAD (slightly smaller) */}
+        <Box
+          style={{
+            width: 72,
+            height: 72,
+            background: "#efe7df",
+            borderRadius: "50%",
+            margin: "0 auto",
+            position: "relative",
+            zIndex: 5,
+          }}
+        >
+          {/* Ears */}
+          {["left", "right"].map((side) => (
+            <Box
+              key={side}
+              style={{
+                position: "absolute",
+                top: -6,
+                [side]: -6,
+                width: 22,
+                height: 22,
+                background: "#efe7df",
+                borderRadius: "50%",
+              }}
+            />
+          ))}
+
+          {/* Face */}
+          <Box style={{
+            position: "absolute",
+            inset: 0,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 6,
+          }}>
+            <Box style={{ display: "flex", gap: 8 }}>
+              <Box style={{ width: 6, height: 6, background: "#5a4742", borderRadius: "50%" }} />
+              <Box style={{ width: 6, height: 6, background: "#5a4742", borderRadius: "50%" }} />
+            </Box>
+            <Box style={{
+              width: 14,
+              height: 8,
+              background: "#5a4742",
+              borderRadius: "0 0 8px 8px",
+            }} />
+          </Box>
+        </Box>
+
+        {/* 🧸 BODY */}
+        <Box
+          style={{
+            width: 80,
+            height: 88,
+            background: "#f4ede6",
+            borderRadius: "50%",
+            margin: "-10px auto 0",
+            position: "relative",
+          }}
+        >
+          {/* Belly */}
+          <Box
+            style={{
+              width: 34,
+              height: 38,
+              background: "#faf4ef",
+              borderRadius: "50%",
+              position: "absolute",
+              top: 32,
+              left: "50%",
+              transform: "translateX(-50%)",
+            }}
+          />
+
+          {/* 💗 HEART */}
+<motion.div
+  animate={{ scale: [1, 1.12, 1] }}
+  transition={{ duration: 1.1, repeat: Infinity }}
+  style={{
+    position: "absolute",
+    top: 26,
+    left: "37%",
+    transform: "translateX(-50%)", // ← stays straight
+    width: 22,
+    height: 20,
+    zIndex: 6,
+  }}
+>
+  {/* rotated heart shape */}
+  <div
+    style={{
+      width: 18,
+      height: 18,
+      background: "#f3a6b6",
+      transform: "rotate(-45deg)",
+      position: "relative",
+      margin: "0 auto",
+    }}
+  >
+    <div
+      style={{
+        position: "absolute",
+        width: 18,
+        height: 18,
+        background: "#f3a6b6",
+        borderRadius: "50%",
+        top: -9,
+        left: 0,
+      }}
+    />
+    <div
+      style={{
+        position: "absolute",
+        width: 18,
+        height: 18,
+        background: "#f3a6b6",
+        borderRadius: "50%",
+        left: 9,
+        top: 0,
+      }}
+    />
+  </div>
+</motion.div>
+
+          {/* 🐾 LEFT ARM (in front of heart) */}
+          <Box
+            style={{
+              position: "absolute",
+              top: 28,
+              left: 4,
+              width: 28,
+              height: 26,
+              background: "#efe7df",
+              borderRadius: "50%",
+              zIndex: 6,
+            }}
+          />
+
+          {/* 🐾 RIGHT ARM (in front of heart) */}
+          <Box
+            style={{
+              position: "absolute",
+              top: 28,
+              right: 4,
+              width: 28,
+              height: 26,
+              background: "#efe7df",
+              borderRadius: "50%",
+              zIndex: 6,
+            }}
+          />
+        </Box>
+
+
+        {/* ✏️ PENCIL */}
+        <Box
+          style={{
+            width: 14,
+            height: 220,
+            background: "linear-gradient(#f8f2ec, #e4d6c8)",
+            margin: "-6px auto 0",
+            borderRadius: "7px",
+            position: "relative",
+          }}
+        >
+          {/* Wood */}
+          <Box style={{
+            position: "absolute",
+            bottom: -16,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 0,
+            height: 0,
+            borderLeft: "7px solid transparent",
+            borderRight: "7px solid transparent",
+            borderTop: "18px solid #d2c1b2",
+          }} />
+
+          {/* Tip */}
+          <Box style={{
+            position: "absolute",
+            bottom: -17,
+            left: "50%",
+            transform: "translateX(-50%)",
+            width: 4,
+            height: 6,
+            background: "#2f2622",
+            borderRadius: "2px",
+          }} />
+        </Box>
+      </Box>
+    </motion.div>
+  );
 }
