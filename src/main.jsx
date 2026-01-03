@@ -20,26 +20,27 @@ const theme = createTheme({
   });
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-    <div
-  style={{
-    minHeight: "100vh",
-    backgroundImage: "url('../background.png')",
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 80,
-  }}
->
     <React.StrictMode>
     <MantineProvider
       theme={theme}
       withGlobalStyles
       withNormalizeCSS
     >
+      <div
+        style={{
+          minHeight: "100vh",
+          width: "110vw",
+          backgroundImage: "url('/background.png')",
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
       <Root />
+      </div>
     </MantineProvider>
   </React.StrictMode>
-  </div>
 );

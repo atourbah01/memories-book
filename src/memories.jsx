@@ -13,7 +13,10 @@ const Page = forwardRef((props, ref) => {
         radius={0}
         style={{
           height: "100%",
-          backgroundColor: memory.color || "#FFFFF8",
+          backgroundColor: isCover ? "transparent" : memory.color || "#FFFFF8",
+          backgroundImage: isCover ? "url('../cover2.png')" : "none",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           borderLeft: "1px solid rgba(0,0,0,0.05)",
           display: "flex",
           flexDirection: "column",
@@ -22,6 +25,57 @@ const Page = forwardRef((props, ref) => {
           overflow: "hidden",
         }}
       >
+        {/* 🌸 MEMORY BACKGROUND DETAILS (cover only) */}
+        {isCover && (
+          <Box
+            style={{
+              position: "absolute",
+              inset: 0,
+              pointerEvents: "none",
+              opacity: 0.35,
+              zIndex: 1,
+            }}
+          >
+            {/* soft paper grain */}
+            <Box
+              style={{
+                position: "absolute",
+                inset: 0,
+                background:
+                  "repeating-linear-gradient(0deg, rgba(0,0,0,0.015) 0px, rgba(0,0,0,0.015) 1px, transparent 2px)",
+              }}
+            />
+
+            {/* handwritten memory note */}
+            <Box
+              style={{
+                position: "absolute",
+                bottom: 5,
+                right: 100,
+                fontFamily: "'Playfair Display', cursive",
+                fontSize: 13,
+                color: "rgba(255, 248, 235, 1.95)",
+                letterSpacing: "0.5px",
+                transform: "rotate(-6deg)",
+                textShadow: ` 0 0 6px rgba(255, 220, 180, 0.35), 0 0 12px rgba(255, 200, 200, 0.25)`,
+              }}
+            >
+              always remembered ♡
+            </Box>
+
+            {/* tiny hearts */}
+            <Box
+              style={{
+                position: "absolute",
+                top: 40,
+                left: 30,
+                fontSize: 14,
+              }}
+            >
+            </Box>
+          </Box>
+        )}
+
         {/* Animated Frame */}
         <motion.div
           initial={{ opacity: 0 }}
@@ -32,6 +86,7 @@ const Page = forwardRef((props, ref) => {
             border: "2px solid rgba(0,0,0,0.03)",
             padding: "20px",
             position: "relative",
+            zIndex: 2,
           }}
         >
           <Stack align="center" gap={0}>
@@ -83,14 +138,13 @@ const Page = forwardRef((props, ref) => {
                 {/* Subtitle */}
                 <Text
                   size="xs"
-                  c="dimmed"
                   fs="italic"
                   mt="sm"
                   mx="auto"
                   ta="center"
-                  style={{ maxWidth: 240 }}
+                  style={{ maxWidth: 240, color: "rgba(255, 255, 255, 0.8)", }}
                 >
-                  Tracing how something small grew into something lasting.
+                  Letting our story take shape, one moment at a time
                 </Text>
 
                 {/* 💖 Breathing Heart */}

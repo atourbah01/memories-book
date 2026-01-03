@@ -13,10 +13,14 @@ export default function MemoryBook() {
   const isMobile = useMediaQuery("(max-width: 768px)");
  
   return (
-    <Box style={{ 
-      background: 'linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%)', 
-      minHeight: '100vh',
-      overflow: 'hidden' 
+    <Box style={{
+      background: "rgba(255, 240, 245, 0.15)",
+      backdropFilter: "blur(6px)",
+      borderRadius: 16,
+      boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
+      padding: 40,
+      width: "100%",
+      position: "relative",
     }}>
       
       {/* Floating Heart Background */}
