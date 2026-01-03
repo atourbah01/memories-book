@@ -121,7 +121,7 @@ function TeddyPencil() {
             transformOrigin: "top center",
             position: "relative",
             marginTop: 20,
-            marginBottom: -70,
+            marginBottom: -80,
             zIndex: 2,
           }}
         >
@@ -207,6 +207,21 @@ function TeddyPencil() {
               borderRight: "1.5px dashed rgba(90,60,35,0.45)",
               transform: "rotate(20deg)",
               filter: "blur(0.2px)",
+            }}
+          />
+
+          {/* 🧵 muzzle seam */}
+          <Box
+            style={{
+              position: "absolute",
+              top: 36,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 16,
+              height: 10,
+              borderBottom: "1.5px dashed rgba(90,60,35,0.45)",
+              borderRadius: "0 0 10px 10px",
+              pointerEvents: "none",
             }}
           />
 
