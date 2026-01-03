@@ -120,7 +120,7 @@ function TeddyPencil() {
           style={{
             width: 62,
             height: 65,
-            background: "#efe7df",
+            background: "#c49a6c",
             borderRadius: "50%",
             margin: "0 auto",
             position: "relative",
@@ -138,7 +138,7 @@ function TeddyPencil() {
                 [side]: -6,
                 width: 22,
                 height: 22,
-                background: "#efe7df",
+                background: "#c49a6c",
                 borderRadius: "50%",
               }}
             />
@@ -155,13 +155,13 @@ function TeddyPencil() {
             gap: 6,
           }}>
             <Box style={{ display: "flex", gap: 8 }}>
-              <Box style={{ width: 6, height: 6, background: "#5a4742", borderRadius: "50%" }} />
-              <Box style={{ width: 6, height: 6, background: "#5a4742", borderRadius: "50%" }} />
+              <Box style={{ width: 6, height: 6, background: "#3b2a22", borderRadius: "50%" }} />
+              <Box style={{ width: 6, height: 6, background: "#3b2a22", borderRadius: "50%" }} />
             </Box>
             <Box style={{
               width: 14,
               height: 8,
-              background: "#5a4742",
+              background: "#3b2a22",
               borderRadius: "0 0 8px 8px",
             }} />
           </Box>
@@ -293,7 +293,7 @@ function TeddyPencil() {
           style={{
             width: 82,
             height: 88,
-            background: "#f4ede6",
+            background: "#c49a6c",
             borderRadius: "50%",
             margin: "-10px auto 0",
             position: "relative",
@@ -305,7 +305,7 @@ function TeddyPencil() {
             style={{
               width: 34,
               height: 38,
-              background: "radial-gradient(circle at top, #ffffff, #fff1e6)",
+              background: "radial-gradient(circle at top, #f6e3c6, #e2c19b)",
               borderRadius: "50%",
               position: "absolute",
               top: 32,
@@ -373,7 +373,7 @@ function TeddyPencil() {
               left: 4,
               width: 28,
               height: 26,
-              background: "#efe7df",
+              background: "#c49a6c",
               borderRadius: "50%",
               zIndex: 6,
               boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)",
@@ -388,7 +388,7 @@ function TeddyPencil() {
               right: 4,
               width: 28,
               height: 26,
-              background: "#efe7df",
+              background: "#c49a6c",
               borderRadius: "50%",
               zIndex: 6,
               boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)",
@@ -401,10 +401,11 @@ function TeddyPencil() {
           style={{
             width: 14,
             height: 220,
-            background: "linear-gradient(#f8f2ec, #e4d6c8)",
+            background: "linear-gradient(180deg, #f9d2df 0%, #f6c1d1 50%, #eaa6bb 100%)",
             margin: "-6px auto 0",
             borderRadius: "7px",
             position: "relative",
+            boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
           }}
         >
           {/* Wood */}
@@ -417,7 +418,7 @@ function TeddyPencil() {
             height: 0,
             borderLeft: "7px solid transparent",
             borderRight: "7px solid transparent",
-            borderTop: "18px solid #d2c1b2",
+            borderTop: "18px solid #e2c6a8",
           }} />
 
           {/* Tip */}
