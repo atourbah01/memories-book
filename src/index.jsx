@@ -177,6 +177,46 @@ function TeddyPencil() {
             zIndex: 4,
           }}
         >
+          {/* 🎗️ Ribbon tails (behind bow) */}
+          <Box
+            style={{
+              position: "absolute",
+              top: 8,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 23,
+              height: 16,
+              zIndex: -1,
+            }}
+          >
+            {/* Left tail */}
+            <Box
+              style={{
+                position: "absolute",
+                left: 0,
+                top: 0,
+                width: 8,
+                height: 14,
+                background: "#e64980",
+                transform: "rotate(-10 deg)",
+                borderRadius: "0 0 6px 6px",
+              }}
+            />
+
+            {/* Right tail */}
+            <Box
+              style={{
+                position: "absolute",
+                right: 0,
+                top: 0,
+                width: 8,
+                height: 14,
+                background: "#e64980",
+                transform: "rotate(10 deg)", 
+                borderRadius: "0 0 6px 6px",
+              }}
+            />
+          </Box>
           {/* Left loop */}
           <Box
             style={{
@@ -243,6 +283,7 @@ function TeddyPencil() {
               height: 10,
               background: "#e64980",
               borderRadius: "3px",
+              zIndex: 3,
             }}
           />
         </Box>
@@ -354,7 +395,6 @@ function TeddyPencil() {
             }}
           />
         </Box>
-
 
         {/* ✏️ PENCIL */}
         <Box
