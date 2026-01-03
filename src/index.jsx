@@ -125,9 +125,24 @@ function TeddyPencil() {
             margin: "0 auto",
             position: "relative",
             zIndex: 5,
-            boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
+            boxShadow: "0 6px 14px rgba(0,0,0,0.18), inset 0 2px 3px rgba(255,255,255,0.25)",
           }}
         >
+
+          {/* Fur texture overlay */}
+          <Box
+            style={{
+              position: "absolute",
+              inset: 0,
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 40%)," +
+                "radial-gradient(circle at 70% 60%, rgba(0,0,0,0.06), transparent 45%)",
+              pointerEvents: "none",
+              filter: "blur(0.4px)",
+            }}
+          />
+
           {/* Ears */}
           {["left", "right"].map((side) => (
             <Box
@@ -140,9 +155,38 @@ function TeddyPencil() {
                 height: 22,
                 background: "#c49a6c",
                 borderRadius: "50%",
+                zIndex: -1,
               }}
             />
           ))}
+          {/* 🪡 Left ear stitching */}
+          <Box
+            style={{
+              position: "absolute",
+              top: -3,
+              left: -4,
+              width: 14,
+              height: 18,
+              borderRadius: "50%",
+              borderLeft: "1.5px dashed rgba(90,60,35,0.45)",
+              transform: "rotate(-20deg)",
+              filter: "blur(0.2px)",
+            }}
+          />
+          {/* 🪡 Right ear stitching */}
+          <Box
+            style={{
+              position: "absolute",
+              top: -3,
+              right: -4,
+              width: 14,
+              height: 18,
+              borderRadius: "50%",
+              borderRight: "1.5px dashed rgba(90,60,35,0.45)",
+              transform: "rotate(20deg)",
+              filter: "blur(0.2px)",
+            }}
+          />
 
           {/* Face */}
           <Box style={{
@@ -297,9 +341,26 @@ function TeddyPencil() {
             borderRadius: "50%",
             margin: "-10px auto 0",
             position: "relative",
-            boxShadow: "inset 0 -1px 1px rgba(0,0,0,0.05)",
+            boxShadow: "0 6px 16px rgba(0,0,0,0.18), inset 0 -3px 6px rgba(0,0,0,0.12)",
+
           }}
         >
+          
+
+          {/* Fur texture overlay */}
+          <Box
+            style={{
+              position: "absolute",
+              inset: 0,
+              borderRadius: "50%",
+              background:
+                "radial-gradient(circle at 35% 25%, rgba(255,255,255,0.16), transparent 45%)," +
+                "radial-gradient(circle at 60% 75%, rgba(0,0,0,0.08), transparent 50%)",
+              pointerEvents: "none",
+              filter: "blur(0.4px)",
+            }}
+          />
+
           {/* Belly */}
           <Box
             style={{
@@ -312,7 +373,22 @@ function TeddyPencil() {
               left: "50%",
               transform: "translateX(-50%)",
             }}
+          >
+          {/* 🧵 Belly stitches */}
+          <Box
+            style={{
+              position: "absolute",
+              top: -3,
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: 38,
+              height: 42,
+              borderRadius: "50%",
+              border: "1.5px dashed rgba(120,80,40,0.45)",
+              pointerEvents: "none",
+            }}
           />
+          </Box>
 
           {/* 💗 HEART */}
           <motion.div
@@ -365,6 +441,36 @@ function TeddyPencil() {
             </div>
           </motion.div>
 
+          {/* 🪡 Left body seam */}
+<Box
+  style={{
+    position: "absolute",
+    top: 14,
+    left: 10,
+    width: 2,
+    height: 56,
+    borderRadius: "2px",
+    background:
+      "repeating-linear-gradient(180deg, rgba(90,60,35,0.35) 0px, rgba(90,60,35,0.35) 2px, transparent 4px, transparent 6px)",
+    opacity: 0.6,
+  }}
+/>
+
+{/* 🪡 Right body seam */}
+<Box
+  style={{
+    position: "absolute",
+    top: 14,
+    right: 10,
+    width: 2,
+    height: 56,
+    borderRadius: "2px",
+    background:
+      "repeating-linear-gradient(180deg, rgba(90,60,35,0.35) 0px, rgba(90,60,35,0.35) 2px, transparent 4px, transparent 6px)",
+    opacity: 0.6,
+  }}
+/>
+          
           {/* 🐾 LEFT ARM (in front of heart) */}
           <Box
             style={{
@@ -376,7 +482,7 @@ function TeddyPencil() {
               background: "#c49a6c",
               borderRadius: "50%",
               zIndex: 6,
-              boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,255,255,0.2)",
             }}
           />
 
@@ -391,7 +497,8 @@ function TeddyPencil() {
               background: "#c49a6c",
               borderRadius: "50%",
               zIndex: 6,
-              boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,255,255,0.2)",
+
             }}
           />
         </Box>
@@ -408,10 +515,23 @@ function TeddyPencil() {
             boxShadow: "0 2px 6px rgba(0,0,0,0.15)",
           }}
         >
+          {/* Pencil shine */}
+          <Box
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 2,
+              width: 2,
+              height: "100%",
+              background: "rgba(255,255,255,0.35)",
+              borderRadius: "2px",
+            }}
+          />
+
           {/* Wood */}
           <Box style={{
             position: "absolute",
-            bottom: -16,
+            bottom: -14,
             left: "50%",
             transform: "translateX(-50%)",
             width: 0,
@@ -424,7 +544,7 @@ function TeddyPencil() {
           {/* Tip */}
           <Box style={{
             position: "absolute",
-            bottom: -17,
+            bottom: -15,
             left: "50%",
             transform: "translateX(-50%)",
             width: 4,
@@ -432,6 +552,17 @@ function TeddyPencil() {
             background: "#2f2622",
             borderRadius: "2px",
           }} />
+          {/* Pencil grain */}
+          <Box
+            style={{
+              position: "absolute",
+              inset: 0,
+              background:
+                "repeating-linear-gradient(90deg, rgba(255,255,255,0.05) 0px, rgba(255,255,255,0.05) 1px, transparent 2px, transparent 4px)",
+              borderRadius: "7px",
+              pointerEvents: "none",
+            }}
+          />
         </Box>
       </Box>
     </motion.div>
