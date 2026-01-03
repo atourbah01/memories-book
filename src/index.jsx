@@ -111,20 +111,21 @@ function TeddyPencil() {
     <motion.div
       animate={{ y: [0, -6, 0] }}
       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-      style={{ width: 120 }}
+      style={{ width: 120, transform: "scale(0.75)", transformOrigin: "top center", }}
     >
       <Box style={{ position: "relative", width: 120, margin: "0 auto" }}>
 
         {/* 🧸 HEAD (slightly smaller) */}
         <Box
           style={{
-            width: 72,
-            height: 72,
+            width: 62,
+            height: 65,
             background: "#efe7df",
             borderRadius: "50%",
             margin: "0 auto",
             position: "relative",
             zIndex: 5,
+            boxShadow: "0 4px 10px rgba(0,0,0,0.08)",
           }}
         >
           {/* Ears */}
@@ -166,15 +167,96 @@ function TeddyPencil() {
           </Box>
         </Box>
 
+        {/* 🎀 BOW TIE */}
+        <Box
+          style={{
+            position: "relative",
+            width: 34,
+            height: 14,
+            margin: "-6px auto 0",
+            zIndex: 4,
+          }}
+        >
+          {/* Left loop */}
+          <Box
+            style={{
+              position: "absolute",
+              left: 0,
+              top: 0,
+              width: 14,
+              height: 16,
+              background: "#f06595",
+              borderRadius: "8px",
+              transform: "rotate(-12deg)",
+            }}
+          >
+            {/* shine */}
+            <Box
+              style={{
+                position: "absolute",
+                top: 3,
+                left: 3,
+                width: 4,
+                height: 4,
+                background: "rgba(255,255,255,0.5)",
+                borderRadius: "50%",
+              }}
+            />
+          </Box>
+
+          {/* Right loop */}
+          <Box
+            style={{
+              position: "absolute",
+              right: 0,
+              top: 0,
+              width: 14,
+              height: 16,
+              background: "#f06595",
+              borderRadius: "8px",
+              transform: "rotate(12deg)",
+            }}
+          >
+            {/* shine */}
+            <Box
+              style={{
+                position: "absolute",
+                top: 3,
+                left: 3,
+                width: 4,
+                height: 4,
+                background: "rgba(255,255,255,0.5)",
+                borderRadius: "50%",
+              }}
+            />
+          </Box>
+
+
+          {/* Center knot */}
+          <Box
+            style={{
+              position: "absolute",
+              left: "50%",
+              top: 3,
+              transform: "translateX(-50%)",
+              width: 6,
+              height: 10,
+              background: "#e64980",
+              borderRadius: "3px",
+            }}
+          />
+        </Box>
+
         {/* 🧸 BODY */}
         <Box
           style={{
-            width: 80,
+            width: 82,
             height: 88,
             background: "#f4ede6",
             borderRadius: "50%",
             margin: "-10px auto 0",
             position: "relative",
+            boxShadow: "inset 0 -1px 1px rgba(0,0,0,0.05)",
           }}
         >
           {/* Belly */}
@@ -182,7 +264,7 @@ function TeddyPencil() {
             style={{
               width: 34,
               height: 38,
-              background: "#faf4ef",
+              background: "radial-gradient(circle at top, #ffffff, #fff1e6)",
               borderRadius: "50%",
               position: "absolute",
               top: 32,
@@ -192,54 +274,55 @@ function TeddyPencil() {
           />
 
           {/* 💗 HEART */}
-<motion.div
-  animate={{ scale: [1, 1.12, 1] }}
-  transition={{ duration: 1.1, repeat: Infinity }}
-  style={{
-    position: "absolute",
-    top: 26,
-    left: "37%",
-    transform: "translateX(-50%)", // ← stays straight
-    width: 22,
-    height: 20,
-    zIndex: 6,
-  }}
->
-  {/* rotated heart shape */}
-  <div
-    style={{
-      width: 18,
-      height: 18,
-      background: "#f3a6b6",
-      transform: "rotate(-45deg)",
-      position: "relative",
-      margin: "0 auto",
-    }}
-  >
-    <div
-      style={{
-        position: "absolute",
-        width: 18,
-        height: 18,
-        background: "#f3a6b6",
-        borderRadius: "50%",
-        top: -9,
-        left: 0,
-      }}
-    />
-    <div
-      style={{
-        position: "absolute",
-        width: 18,
-        height: 18,
-        background: "#f3a6b6",
-        borderRadius: "50%",
-        left: 9,
-        top: 0,
-      }}
-    />
-  </div>
-</motion.div>
+          <motion.div
+            animate={{ scale: [1, 1.12, 1] }}
+            transition={{ duration: 1.1, repeat: Infinity }}
+            style={{
+              position: "absolute",
+              top: 26,
+              left: "37%",
+              transform: "translateX(-50%)", // ← stays straight
+              width: 22,
+              height: 20,
+              zIndex: 6,
+            }}
+          >
+            {/* rotated heart shape */}
+            <div
+              style={{
+                width: 18,
+                height: 18,
+                background: "#f06595",
+                transform: "rotate(-45deg)",
+                position: "relative",
+                margin: "0 auto",
+                boxShadow: "0 0 12px rgba(240,101,149,0.5)",
+              }}
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  width: 18,
+                  height: 18,
+                  background: "#f06595",
+                  borderRadius: "50%",
+                  top: -9,
+                  left: 0,
+                }}
+              />
+              <div
+                style={{
+                  position: "absolute",
+                  width: 18,
+                  height: 18,
+                  background: "#f06595",
+                  borderRadius: "50%",
+                  left: 9,
+                  top: 0,
+                }}
+              />
+            </div>
+          </motion.div>
 
           {/* 🐾 LEFT ARM (in front of heart) */}
           <Box
@@ -252,6 +335,7 @@ function TeddyPencil() {
               background: "#efe7df",
               borderRadius: "50%",
               zIndex: 6,
+              boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)",
             }}
           />
 
@@ -266,6 +350,7 @@ function TeddyPencil() {
               background: "#efe7df",
               borderRadius: "50%",
               zIndex: 6,
+              boxShadow: "inset 0 2px 4px rgba(0,0,0,0.06)",
             }}
           />
         </Box>
