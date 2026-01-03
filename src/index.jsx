@@ -114,7 +114,17 @@ function TeddyPencil() {
       style={{ width: 120, transform: "scale(0.75)", transformOrigin: "top center", }}
     >
       <Box style={{ position: "relative", width: 120, margin: "0 auto" }}>
-
+        {/* 🧸 BEAR WRAPPER (scaled down) */}
+        <Box
+          style={{
+            transform: "scale(0.6)",
+            transformOrigin: "top center",
+            position: "relative",
+            marginTop: 20,
+            marginBottom: -70,
+            zIndex: 2,
+          }}
+        >
         {/* 🧸 HEAD (slightly smaller) */}
         <Box
           style={{
@@ -140,6 +150,18 @@ function TeddyPencil() {
                 "radial-gradient(circle at 70% 60%, rgba(0,0,0,0.06), transparent 45%)",
               pointerEvents: "none",
               filter: "blur(0.4px)",
+            }}
+          />
+
+          {/* 🪡 face stitching */}
+          <Box
+            style={{
+              position: "absolute",
+              inset: 1,
+              borderRadius: "50%",
+              border: "1.5px dashed rgba(90,60,35,0.35)",
+              pointerEvents: "none",
+              opacity: 0.7,
             }}
           />
 
@@ -442,34 +464,34 @@ function TeddyPencil() {
           </motion.div>
 
           {/* 🪡 Left body seam */}
-<Box
-  style={{
-    position: "absolute",
-    top: 14,
-    left: 10,
-    width: 2,
-    height: 56,
-    borderRadius: "2px",
-    background:
-      "repeating-linear-gradient(180deg, rgba(90,60,35,0.35) 0px, rgba(90,60,35,0.35) 2px, transparent 4px, transparent 6px)",
-    opacity: 0.6,
-  }}
-/>
+          <Box
+            style={{
+              position: "absolute",
+              top: 14,
+              left: 10,
+              width: 2,
+              height: 56,
+              borderRadius: "2px",
+              background:
+                "repeating-linear-gradient(180deg, rgba(90,60,35,0.35) 0px, rgba(90,60,35,0.35) 2px, transparent 4px, transparent 6px)",
+              opacity: 0.6,
+            }}
+          />
 
-{/* 🪡 Right body seam */}
-<Box
-  style={{
-    position: "absolute",
-    top: 14,
-    right: 10,
-    width: 2,
-    height: 56,
-    borderRadius: "2px",
-    background:
-      "repeating-linear-gradient(180deg, rgba(90,60,35,0.35) 0px, rgba(90,60,35,0.35) 2px, transparent 4px, transparent 6px)",
-    opacity: 0.6,
-  }}
-/>
+          {/* 🪡 Right body seam */}
+          <Box
+            style={{
+              position: "absolute",
+              top: 14,
+              right: 10,
+              width: 2,
+              height: 56,
+              borderRadius: "2px",
+              background:
+                "repeating-linear-gradient(180deg, rgba(90,60,35,0.35) 0px, rgba(90,60,35,0.35) 2px, transparent 4px, transparent 6px)",
+              opacity: 0.6,
+            }}
+          />
           
           {/* 🐾 LEFT ARM (in front of heart) */}
           <Box
@@ -484,7 +506,18 @@ function TeddyPencil() {
               zIndex: 6,
               boxShadow: "0 2px 6px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,255,255,0.2)",
             }}
-          />
+          >
+              {/* 🪡 paw seam */}
+              <Box
+                style={{
+                  position: "absolute",
+                  inset: 3,
+                  borderRadius: "50%",
+                  border: "1.5px dashed rgba(90,60,35,0.45)",
+                  pointerEvents: "none",
+                }}
+              />
+            </Box>
 
           {/* 🐾 RIGHT ARM (in front of heart) */}
           <Box
@@ -500,7 +533,74 @@ function TeddyPencil() {
               boxShadow: "0 2px 6px rgba(0,0,0,0.18), inset 0 2px 4px rgba(255,255,255,0.2)",
 
             }}
-          />
+          >
+              {/* 🪡 paw seam */}
+              <Box
+                style={{
+                  position: "absolute",
+                  inset: 3,
+                  borderRadius: "50%",
+                  border: "1.5px dashed rgba(90,60,35,0.45)",
+                  pointerEvents: "none",
+                }}
+              />
+            </Box>
+
+          {/* 🐾 LEFT LEG */}
+          <Box
+            style={{
+              position: "absolute",
+              bottom: -14,
+              left: -5,
+              width: 30,
+              height: 40,
+              transform: "rotate(-65deg)",
+              background: "#c49a6c",
+              borderRadius: "50% 50% 45% 45%",
+              zIndex: 3,
+              boxShadow:
+                "0 4px 6px rgba(0,0,0,0.2), inset 0 2px 3px rgba(255,255,255,0.2)",
+            }}
+          >
+            {/* 🪡 paw seam */}
+            <Box
+              style={{
+                position: "absolute",
+                inset: 3,
+                borderRadius: "50%",
+                border: "1px dashed rgba(90,60,35,0.35)",
+              }}
+            />
+          </Box>
+
+          {/* 🐾 RIGHT LEG */}
+          <Box
+            style={{
+              position: "absolute",
+              bottom: -14,
+              right: -5,
+              width: 30,
+              height: 40,
+              transform: "rotate(65deg)",
+              background: "#c49a6c",
+              borderRadius: "50% 50% 45% 45%",
+              zIndex: 3,
+              boxShadow:
+                "0 4px 6px rgba(0,0,0,0.2), inset 0 2px 3px rgba(255,255,255,0.2)",
+            }}
+          >
+            {/* 🪡 paw seam */}
+            <Box
+              style={{
+                position: "absolute",
+                inset: 3,
+                borderRadius: "50%",
+                border: "1px dashed rgba(90,60,35,0.35)",
+              }}
+            />
+          </Box>
+
+        </Box>
         </Box>
 
         {/* ✏️ PENCIL */}
