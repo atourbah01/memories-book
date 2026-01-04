@@ -320,21 +320,21 @@ export default function MemoryBook() {
             </ActionIcon>
 
             <motion.div
-  whileHover={{ scale: 1.2 }}
-  whileTap={{ scale: 0.9 }}
-  onClick={() => setDarkMode((prev) => !prev)}
-  style={{ cursor: "pointer" }}
->
-  <IconHeartFilled
-    size={40}
-    color={darkMode ? "#ffffff" : "#F06595"}
-    style={{
-      filter: darkMode
-        ? "drop-shadow(0 0 6px rgba(255,255,255,0.8))"
-        : "none",
-    }}
-  />
-</motion.div>
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              onClick={() => setDarkMode((prev) => !prev)}
+              style={{ cursor: "pointer" }}
+            >
+              <IconHeartFilled
+                size={40}
+                color={darkMode ? "#ffffff" : "#F06595"}
+                style={{
+                  filter: darkMode
+                    ? "drop-shadow(0 0 6px rgba(255,255,255,0.8))"
+                    : "none",
+                }}
+              />
+            </motion.div>
 
 
             <ActionIcon 
