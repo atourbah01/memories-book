@@ -60,7 +60,7 @@ const Page = forwardRef((props, ref) => {
                 textShadow: ` 0 0 6px rgba(255, 220, 180, 0.35), 0 0 12px rgba(255, 200, 200, 0.25)`,
               }}
             >
-              always remembered ♡
+              forever remembered ♡
             </Box>
 
             {/* tiny hearts */}
@@ -142,7 +142,7 @@ const Page = forwardRef((props, ref) => {
                   mt="sm"
                   mx="auto"
                   ta="center"
-                  style={{ maxWidth: 240, color: "rgba(255, 255, 255, 0.7)", }}
+                  style={{ maxWidth: 240, color: "rgba(255, 255, 255, 0.6)", }}
                 >
                   Letting our story take shape, one moment at a time
                 </Text>
@@ -155,7 +155,7 @@ const Page = forwardRef((props, ref) => {
                     repeat: Infinity,
                     ease: "easeInOut",
                   }}
-                  style={{ marginTop: 14 }}
+                  style={{ marginTop: 1 }}
                 >
                   💖
                 </motion.div>

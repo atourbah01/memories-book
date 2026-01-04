@@ -6,11 +6,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import Page from './memories.jsx';
 import { memories } from './memories.js';
 import { useMediaQuery } from "@mantine/hooks";
+import { useState } from "react";
 
 
 export default function MemoryBook() {
   const book = useRef();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const [darkMode, setDarkMode] = useState(false);
  
   return (
     <Box style={{
@@ -22,7 +24,25 @@ export default function MemoryBook() {
       width: "100%",
       position: "relative",
     }}>
-      
+      <AnimatePresence>
+        {darkMode && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 0.75 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.2, ease: "easeInOut" }}
+            style={{
+              position: "fixed",
+              inset: 0,
+              background:
+                "radial-gradient(circle at center, rgba(0,0,0,0.4), rgba(0,0,0,0.95))",
+              zIndex: 5,
+              pointerEvents: "none",
+            }}
+          />
+        )}
+      </AnimatePresence>
+
       {/* Floating Heart Background */}
       <div style={{ position: 'absolute', top: 0, width: '100%', height: '100%', pointerEvents: 'none' }}>
           <motion.div
@@ -37,6 +57,109 @@ export default function MemoryBook() {
       <Center h="100vh">
       <Box style={{ position: "relative", display: "flex", alignItems: "center" }}>
         <Container>
+        {darkMode && (
+  <Box
+    style={{
+      position: "absolute",
+      inset: -12, // tighter to the book
+      pointerEvents: "none",
+      zIndex: 6,
+    }}
+  >
+    {[...Array(24)].map((_, i) => {
+      const lampsPerEdge = 6;
+      const edge = Math.floor(i / lampsPerEdge); // 0 top, 1 right, 2 bottom, 3 left
+      const indexOnEdge = i % lampsPerEdge;
+
+      const groupIndex = Math.floor(indexOnEdge / 3);
+      const lampIndex = indexOnEdge % 3;
+
+      let stylePosition = {};
+
+      // 🔝 Top edge
+      if (edge === 0) {
+        stylePosition = {
+          top: 4,
+          left: `${8 + indexOnEdge * 11}%`,
+        };
+      }
+
+      // 👉 Right edge
+      if (edge === 1) {
+        stylePosition = {
+          right: 200,
+          top: `${10 + indexOnEdge * 13}%`,
+        };
+      }
+
+      // 🔻 Bottom edge
+      if (edge === 2) {
+        stylePosition = {
+          bottom: 80,
+          left: `${8 + indexOnEdge * 11}%`,
+        };
+      }
+
+      // 👈 Left edge
+      if (edge === 3) {
+        stylePosition = {
+          left: 20,
+          top: `${10 + indexOnEdge * 13}%`,
+        };
+      }
+
+      return (
+        <motion.div
+          key={i}
+          animate={{
+            opacity: [0.15, 0.9, 0.15],
+            scale: [0.9, 1, 0.9],
+          }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: lampIndex + groupIndex * 0.2,
+          }}
+          style={{
+            position: "absolute",
+            width: 6,
+            height: 6,
+            borderRadius: "50%",
+            background: "rgb(255, 220, 160)",
+            boxShadow: `
+              0 0 6px rgba(255,220,160,0.8),
+              0 0 14px rgba(255,210,130,0.55)
+            `,
+            ...stylePosition,
+          }}
+        />
+      );
+    })}
+  </Box>
+)}
+
+
+          {darkMode && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1 }}
+              style={{
+                position: "absolute",
+                top: "50%",
+                left: "40%",
+                transform: "translate(-50%, -65%)",
+                width: 500,
+                height: 500,
+                background:
+                  "radial-gradient(ellipse at center, rgba(255,230,180,0.55), rgba(255,230,180,0.2), transparent)",
+                filter: "blur(12px)",
+                zIndex: 6,
+                pointerEvents: "none",
+              }}
+            />
+          )}
           <HTMLFlipBook
             width={isMobile ? 300 : 400}
             height={isMobile ? 460 : 550}
@@ -79,9 +202,18 @@ export default function MemoryBook() {
               <IconChevronLeft size={30} />
             </ActionIcon>
 
-            <motion.div whileHover={{ scale: 1.2 }}>
-              <IconHeartFilled color="#F06595" size={40} />
-            </motion.div>
+            <motion.div
+  whileHover={{ scale: 1.2 }}
+  whileTap={{ scale: 0.9 }}
+  onClick={() => setDarkMode((prev) => !prev)}
+  style={{ cursor: "pointer" }}
+>
+  <IconHeartFilled
+    size={40}
+    color={darkMode ? "#000000" : "#F06595"}
+  />
+</motion.div>
+
 
             <ActionIcon 
               variant="subtle" 
