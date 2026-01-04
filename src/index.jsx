@@ -63,9 +63,100 @@ export default function MemoryBook() {
               position: "absolute",
               inset: -12, // tighter to the book
               pointerEvents: "none",
-              zIndex: 6,
+              zIndex: 5,
             }}
           >
+            {/* 🔌 LED CABLES */}
+            <Box
+              style={{
+                position: "absolute",
+                inset: 0,
+              }}
+            >
+              {/* Top */}
+              <Box
+                style={{
+                  position: "absolute",
+                  top: 8,
+                  left: "4.5%",
+                  right: "32%",
+                  height: 2,
+                  background:
+                    "linear-gradient(90deg, rgba(255,180,90,0.25), rgba(120,80,40,0.4), rgba(255,180,90,0.25))",
+                  borderRadius: 2,
+                }}
+              />
+
+              {/* Bottom */}
+              <Box
+                style={{
+                  position: "absolute",
+                  bottom: 84,
+                  left: "4.5%",
+                  right: "33%",
+                  height: 2,
+                  background:
+                    "linear-gradient(90deg, rgba(255,180,90,0.25), rgba(120,80,40,0.4), rgba(255,180,90,0.25))",
+                  borderRadius: 2,
+                }}
+              />
+
+              {/* Left */}
+              <Box
+                style={{
+                  position: "absolute",
+                  top: "2%",
+                  bottom: "13%",
+                  left: 23,
+                  width: 2,
+                  background:
+                    "linear-gradient(180deg, rgba(255,180,90,0.25), rgba(120,80,40,0.4), rgba(255,180,90,0.25))",
+                  borderRadius: 2,
+                }}
+              />
+
+              {/* Right */}
+              <Box
+                style={{
+                  position: "absolute",
+                  top: "2%",
+                  bottom: "13%",
+                  right: 205,
+                  width: 2,
+                  background:
+                    "linear-gradient(180deg, rgba(255,180,90,0.25), rgba(120,80,40,0.4), rgba(255,180,90,0.25))",
+                  borderRadius: 2,
+                }}
+              />
+            </Box>
+            {/* ⚡ CURRENT FLOW */}
+            <motion.div
+              animate={{ backgroundPosition: ["0% 0%", "200% 0%"] }}
+              transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
+              style={{
+                position: "absolute",
+                inset: 0,
+                maskImage:
+                  "linear-gradient(#000 0 0)",
+
+                background:
+                  `
+                  linear-gradient(
+                    90deg,
+                    transparent 0%,
+                    rgba(255,210,120,0.35) 50%,
+                    transparent 100%
+                  )
+                  `,
+                backgroundSize: "200% 2px",
+                backgroundRepeat: "no-repeat",
+                top: 8,
+                left: "6%",
+                right: "76%",
+                height: 2,
+              }}
+            />
+
             {[...Array(24)].map((_, i) => {
               const lampsPerEdge = 6;
               const edge = Math.floor(i / lampsPerEdge); // 0 top, 1 right, 2 bottom, 3 left
@@ -123,22 +214,48 @@ export default function MemoryBook() {
                   }}
                   style={{
                     position: "absolute",
-                    width: 6,
-                    height: 6,
+                    width: 10,
+                    height: 10,
                     borderRadius: "50%",
-                    background: "rgb(255, 220, 160)",
                     boxShadow: `
                       0 0 6px rgba(255,220,160,0.8),
                       0 0 14px rgba(255,210,130,0.55)
                     `,
                     ...stylePosition,
                   }}
-                />
+                >
+                  {/* 💡 LED core */}
+                  <Box
+                    style={{
+                      position: "absolute",
+                      inset: 3,
+                      borderRadius: "50%",
+                      background: "rgb(255, 183, 92)",
+                      boxShadow: `
+                      0 0 6px rgba(255,183,92,1),
+                      0 0 14px rgba(255,160,60,0.9),
+                      0 0 24px rgba(255,140,40,0.6)
+                      `,
+                    }}
+                  />
+                  {/* 🧊 Glass bulb */}
+                  <Box
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      borderRadius: "50%",
+                      background:
+                        "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.45), rgba(255,255,255,0.12) 40%, rgba(255,255,255,0.04) 60%)",
+                      border: "0.6px solid rgba(255,220,180,0.35)",
+                      boxShadow: "inset 0 0 2px rgba(255,255,255,0.4)",
+                      pointerEvents: "none",
+                    }}
+                  />
+                  </motion.div>
               );
             })}
           </Box>
         )}
-
 
           {darkMode && (
             <motion.div
@@ -210,7 +327,12 @@ export default function MemoryBook() {
 >
   <IconHeartFilled
     size={40}
-    color={darkMode ? "#000000" : "#F06595"}
+    color={darkMode ? "#ffffff" : "#F06595"}
+    style={{
+      filter: darkMode
+        ? "drop-shadow(0 0 6px rgba(255,255,255,0.8))"
+        : "none",
+    }}
   />
 </motion.div>
 
