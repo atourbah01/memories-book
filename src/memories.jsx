@@ -1,9 +1,15 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, useState } from "react";
 import { Paper, Text, Image, Box, Title, Stack } from "@mantine/core";
 import { motion } from "framer-motion";
 
 const Page = forwardRef((props, ref) => {
   const { memory, isCover } = props;
+  const [activeMoment, setActiveMoment] = useState(null);
+  const stopFlip = (e) => {
+    //e.stopPropagation();
+    e.preventDefault();
+  };  
+
 
   return (
     <div className="page" ref={ref} style={{ height: "100%" }}>
@@ -20,7 +26,7 @@ const Page = forwardRef((props, ref) => {
           borderLeft: "1px solid rgba(0,0,0,0.05)",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
+          justifyContent: "flex-start",
           position: "relative",
           overflow: "hidden",
         }}
@@ -162,26 +168,112 @@ const Page = forwardRef((props, ref) => {
               </Box>
             ) : (
               <>
-                <Text size="xs" tt="uppercase" fw={700} c="dimmed">
-                  {memory.date}
-                </Text>
+  {/* 📖 Chapter */}
+  <Text size="xs" tt="uppercase" fw={700} c="dimmed">
+    {memory.date}
+  </Text>
 
-                <Image
-                  src={memory.image}
-                  radius="md"
-                  h={250}
-                  w="100%"
-                  fit="cover"
-                />
+  <Title order={3} ta="center" mt={6} style={{ fontFamily: "serif" }}>
+    {memory.title}
+  </Title>
 
-                <Title order={3} ta="center" style={{ fontFamily: "serif" }}>
-                  {memory.title}
-                </Title>
+  <Text size="sm" ta="center" lh={1.6} mt={8} style={{ maxWidth: 260 }}>
+    {memory.story}
+  </Text>
 
-                <Text size="sm" ta="center" lh={1.6}>
-                  {memory.story}
-                </Text>
-              </>
+  {/* 🌙 MAIN CONTENT */}
+  <Box
+    mt="md"
+    style={{
+      display: "grid",
+      gridTemplateColumns: "1fr 1fr",
+      gap: 16,
+      width: "100%",
+      //height: "100%",
+      alignItems: "center",
+    }}
+  >
+    {/* LEFT: Bubble */}
+    <Box style={{ minHeight: 220 }}>
+      {activeMoment && (
+        <motion.div
+          initial={{ opacity: 0, x: -20, scale: 0.95 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: -20 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          style={{
+            background: "rgba(255,255,255,0.85)",
+            borderRadius: 18,
+            padding: 14,
+            boxShadow:
+              "0 10px 30px rgba(255,180,150,0.35)",
+          }}
+        >
+          <Image
+            src={activeMoment.image}
+            radius="md"
+            h={120}
+            fit="cover"
+          />
+
+          <Text
+            size="xs"
+            fs="italic"
+            mt="sm"
+            lh={1.6}
+            style={{ color: "#5a4a42" }}
+          >
+            {activeMoment.bubbleStory}
+          </Text>
+        </motion.div>
+      )}
+    </Box>
+
+    {/* RIGHT: Grid */}
+    <Box
+      style={{
+        display: "grid",
+        gridTemplateColumns: "repeat(2, 1fr)",
+        gap: 12,
+      }}
+    >
+      {memory?.moments?.map((moment) => (
+        <Box
+          key={moment.id}
+          onPointerDown={stopFlip}
+          onMouseDown={stopFlip}
+          onTouchStart={stopFlip}
+          onClick={(e) => {
+            stopFlip(e);
+            setActiveMoment(moment);
+          }}
+          style={{
+            cursor: "pointer",
+            textAlign: "center",
+          }}
+        >
+          <Image
+            src={moment.thumbnail}
+            radius="md"
+            h={90}
+            fit="cover"
+            style={{
+              boxShadow:
+                activeMoment?.id === moment.id
+                  ? "0 0 0 2px rgba(255,180,120,0.8)"
+                  : "0 4px 10px rgba(0,0,0,0.12)",
+            }}
+          />
+
+          <Text size="xs" mt={4} fw={500}>
+            {moment.title}
+          </Text>
+        </Box>
+      ))}
+    </Box>
+  </Box>
+</>
+
             )}
           </Stack>
         </motion.div>

@@ -288,7 +288,7 @@ export default function MemoryBook() {
             maxShadowOpacity={0.35}
             showCover={true}
             mobileScrollSupport={true}
-            disableFlipByClick={isMobile}
+            //disableFlipByClick={true}
             drawShadow={true}
             flippingTime={900}        // smoother flip
             usePortrait={true}
