@@ -14,7 +14,7 @@ const Page = forwardRef((props, ref) => {
         style={{
           height: "100%",
           backgroundColor: isCover ? "transparent" : memory.color || "#FFFFF8",
-          backgroundImage: isCover ? "url('../cover2.png')" : "none",
+          backgroundImage: isCover ? "url('../cover4.jpg')" : "none",
           backgroundSize: "cover",
           backgroundPosition: "center",
           borderLeft: "1px solid rgba(0,0,0,0.05)",
@@ -51,7 +51,7 @@ const Page = forwardRef((props, ref) => {
               style={{
                 position: "absolute",
                 bottom: 5,
-                right: 100,
+                right: 10,
                 fontFamily: "'Playfair Display', cursive",
                 fontSize: 13,
                 color: "rgba(255, 248, 235, 1.95)",
@@ -142,7 +142,7 @@ const Page = forwardRef((props, ref) => {
                   mt="sm"
                   mx="auto"
                   ta="center"
-                  style={{ maxWidth: 240, color: "rgba(255, 255, 255, 0.8)", }}
+                  style={{ maxWidth: 240, color: "rgba(255, 255, 255, 0.7)", }}
                 >
                   Letting our story take shape, one moment at a time
                 </Text>
