@@ -111,6 +111,50 @@ const Page = forwardRef(({ memory, isCover, onViewMore }, ref) => {
             zIndex: 2,
           }}
         >
+          {/* 📖 PAGE FOOTER */}
+<Box
+  style={{
+    position: "absolute",
+    bottom: -25,
+    left: -5,
+    right: 0,
+    pointerEvents: "none",
+    zIndex: 3,
+  }}
+>
+  {/* Center Footer Text */}
+  <Text
+    size="xs"
+    ta="center"
+    style={{
+      fontFamily: "serif",
+      letterSpacing: "0.12em",
+      color: "rgba(120, 90, 140, 0.45)",
+      textShadow: "0 0 6px rgba(200,160,255,0.25)",
+    }}
+  >
+    The Story Of Us
+  </Text>
+
+  {/* Page Number */}
+  {!isCover && (
+    <Text
+      size="xs"
+      style={{
+        position: "absolute",
+        right: -5,
+        bottom: 0,
+        fontFamily: "serif",
+        color: "rgba(90,70,110,0.55)",
+        fontStyle: "italic",
+        letterSpacing: "0.05em",
+      }}
+    >
+      {memory.pageNumber}
+    </Text>
+  )}
+</Box>
+
 
           <Stack align="center" gap={0}>
             {isCover ? (

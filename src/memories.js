@@ -1,6 +1,7 @@
 export const memories = [
     {
       id: 1,
+      pageNumber: 1,
       date: "Chapter I: The Beginning",
       title: "How it all started",
       story: "Every great story has a first page. This one belongs to us.",
@@ -47,6 +48,7 @@ export const memories = [
     },
     {
       id: 2,
+      pageNumber: 2,
       date: "Chapter II: A Sunny Day",
       title: "Laughter & Coffee",
       story: "The way you laughed at that silly joke made the world stop for a second.",
@@ -93,6 +95,7 @@ export const memories = [
     },
     {
       id: 3,
+      pageNumber: 3,
       date: "Chapter III: Under the Stars",
       title: "Quiet Moments",
       story: "Sometimes, the silence between us says more than words ever could.",
