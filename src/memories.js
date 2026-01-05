@@ -4,6 +4,7 @@ export const memories = [
       date: "Chapter I: The Beginning",
       title: "How it all started",
       story: "Every great story has a first page. This one belongs to us.",
+      pageNote: "We didn’t know it then, but something gentle had already begun. Even the quiet moments carried meaning.",
       color: "#FFF5F5",
       moments: [
         {
@@ -37,6 +38,7 @@ export const memories = [
       date: "Chapter II: A Sunny Day",
       title: "Laughter & Coffee",
       story: "The way you laughed at that silly joke made the world stop for a second.",
+      pageNote: "That day felt lighter somehow, as if laughter had decided to stay a little longer with us.",
       color: "#FFF5F5",
       moments: [
         {
@@ -70,6 +72,7 @@ export const memories = [
       date: "Chapter III: Under the Stars",
       title: "Quiet Moments",
       story: "Sometimes, the silence between us says more than words ever could.",
+      pageNote: "Under the open sky, words felt unnecessary. Being there was enough.",
       color: "#FFF5F5",
       moments: [
         {

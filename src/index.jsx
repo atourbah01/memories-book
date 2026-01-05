@@ -277,7 +277,7 @@ export default function MemoryBook() {
               }}
             />
           )}
-          <HTMLFlipBook
+          <HTMLFlipBook  
             width={isMobile ? 300 : 400}
             height={isMobile ? 460 : 550}
             size="fixed"
@@ -285,14 +285,17 @@ export default function MemoryBook() {
             maxWidth={900}
             minHeight={420}
             maxHeight={1200}
-            maxShadowOpacity={0.35}
+            maxShadowOpacity={0.3}
             showCover={true}
             mobileScrollSupport={true}
-            //disableFlipByClick={true}
+            swipeDistance={20} 
+            disableFlipByClick={false}
+            clickEventForward={false}
             drawShadow={true}
-            flippingTime={900}        // smoother flip
+            flippingTime={900}  
             usePortrait={true}
             startZIndex={0}
+            showPageCorners={false}
             ref={book}
           >
             {/* Cover Page */}

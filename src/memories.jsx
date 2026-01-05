@@ -194,7 +194,13 @@ const Page = forwardRef((props, ref) => {
     }}
   >
     {/* LEFT: Bubble */}
-    <Box style={{ minHeight: 220 }}>
+    <Box style={{ 
+      minHeight: 220,
+      display: "flex",
+      flexDirection: "column",
+      gap: 12,
+      position: "relative",
+      }}>
       {activeMoment && (
         <motion.div
           initial={{ opacity: 0, x: -20, scale: 0.95 }}
@@ -202,7 +208,11 @@ const Page = forwardRef((props, ref) => {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           style={{
-            position: "relative",
+            position: "absolute",
+            top: -50,
+            left: 0,
+            right: 0,
+            zIndex: 3,
             background: "rgba(255,255,255,0.85)",
             borderRadius: 18,
             padding: 14,
@@ -256,6 +266,23 @@ const Page = forwardRef((props, ref) => {
           </Text>
         </motion.div>
       )}
+      <Text
+        size="sm"
+        lh={1.7}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          zIndex: 1,
+          color: "#6b5a52",
+          fontStyle: "italic",
+          padding: "0 6px",
+          pointerEvents: "none",
+        }}
+      >
+        {memory.pageNote}
+      </Text>
     </Box>
 
     {/* RIGHT: Grid */}
