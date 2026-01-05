@@ -2,6 +2,7 @@ import React, { forwardRef, useState } from "react";
 import { Paper, Text, Image, Box, Title, Stack } from "@mantine/core";
 import { motion } from "framer-motion";
 
+
 const Page = forwardRef((props, ref) => {
   const { memory, isCover } = props;
   const [activeMoment, setActiveMoment] = useState(null);
@@ -209,7 +210,7 @@ const Page = forwardRef((props, ref) => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           style={{
             position: "absolute",
-            top: -50,
+            top: -100,
             left: 0,
             right: 0,
             zIndex: 3,
@@ -291,6 +292,9 @@ const Page = forwardRef((props, ref) => {
         display: "grid",
         gridTemplateColumns: "1fr",
         gap: 12,
+        alignContent: "start",
+        transform: "scale(0.8)",
+        transformOrigin: "top center",
       }}
     >
       {memory?.moments?.map((moment) => (
@@ -306,9 +310,10 @@ const Page = forwardRef((props, ref) => {
           style={{
             cursor: "pointer",
             textAlign: "center",
-            padding: "10px 10px 14px",
+            padding: "8px 8px 8px",
             background: "#fffdf9",
             borderRadius: "12px 14px 10px 16px",
+            transform: `rotate(${Math.random() * 2 - 1}deg)`,
             boxShadow:
               activeMoment?.id === moment.id
                 ? "0 0 0 2px rgba(255,180,120,0.75)"
@@ -340,19 +345,132 @@ const Page = forwardRef((props, ref) => {
             `,
           }}
         >
+          {/* REALISTIC PAPER CLIP */}
+          <Box
+            style={{
+              position: "absolute",
+              top: -14,
+              left: "50%",
+              transform: `
+                translateX(-50%)
+                rotate(-7deg)
+              `,
+              width: 54,
+              height: 28,
+
+              borderRadius: "14px",
+              border: "2px solid rgba(140,140,140,0.9)",
+
+              background: `
+                linear-gradient(
+                  135deg,
+                  rgba(235,235,235,0.98),
+                  rgba(200,200,200,0.95),
+                  rgba(225,225,225,0.98)
+                )
+              `,
+
+              boxShadow: `
+                0 2px 4px rgba(0,0,0,0.28),
+                inset 0 1px 1px rgba(255,255,255,0.75),
+                inset 0 -1px 1px rgba(0,0,0,0.18)
+              `,
+
+              zIndex: 6,
+              pointerEvents: "none",
+            }}
+          />
+          {/* CLIP INNER GAP */}
+          <Box
+            style={{
+              position: "absolute",
+              top: -8,
+              left: "50%",
+              transform: "translateX(-50%) rotate(-7deg)",
+              width: 34,
+              height: 14,
+
+              background: "#fffdf9",
+              borderRadius: "8px",
+
+              boxShadow: `
+                inset 0 1px 2px rgba(0,0,0,0.12)
+              `,
+
+              zIndex: 7,
+              pointerEvents: "none",
+            }}
+          />
+          {/* CONTACT SHADOW */}
+          <Box
+            style={{
+              position: "absolute",
+              top: 8,
+              left: "50%",
+              transform: "translateX(-50%) rotate(-7deg)",
+              width: 42,
+              height: 8,
+
+              background: "rgba(0,0,0,0.28)",
+              filter: "blur(7px)",
+
+              zIndex: 2,
+              pointerEvents: "none",
+            }}
+          />
+          {/* PAPER COMPRESSION HALO */}
+          <Box
+            style={{
+              position: "absolute",
+              top: 10,
+              left: "50%",
+              transform: "translateX(-50%) rotate(-7deg)",
+              width: 52,
+              height: 18,
+
+              background: `
+                radial-gradient(
+                  ellipse at center,
+                  rgba(210,210,210,0.22),
+                  rgba(210,210,210,0.12),
+                  transparent 70%
+                )
+              `,
+
+              zIndex: 1,
+              pointerEvents: "none",
+            }}
+          />
+          {/* SPECTACULAR SCRATCH HIGHLIGHT*/}
+          <Box
+            style={{
+              position: "absolute",
+              top: -6,
+              left: "48%",
+              width: 18,
+              height: 1,
+              background: "rgba(255,255,255,0.45)",
+              transform: "rotate(-12deg)",
+              zIndex: 8,
+              pointerEvents: "none",
+            }}
+          />
           <Image
             src={moment.thumbnail}
             //radius="md"
-            h={90}
+            //h={90}
             fit="cover"
             style={{
-              display: "block",
+              width: "100%",
+              aspectRatio: "4 / 5",
+              maxHeight: 90,
               borderRadius: 6,
-              boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.05)",
+              display: "block",
+              boxShadow: "0 2px 6px rgba(0,0,0,0.12)",
             }}
           />
 
-          <Text size="xs" mt={4} fw={500}>
+          <Text size="xs" mt={3} fw={500}>
             {moment.title}
           </Text>
         </Box>
