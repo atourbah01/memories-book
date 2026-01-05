@@ -3,13 +3,28 @@ import { Paper, Text, Image, Box, Title, Stack } from "@mantine/core";
 import { motion } from "framer-motion";
 
 
-const Page = forwardRef((props, ref) => {
-  const { memory, isCover } = props;
+
+const Page = forwardRef(({ memory, isCover, onViewMore }, ref) => {
+  //const { memory, isCover } = props;
   const [activeMoment, setActiveMoment] = useState(null);
+  const [showViewMore, setShowViewMore] = useState(false);
   const stopFlip = (e) => {
     e.stopPropagation();
     e.preventDefault();
-  };  
+  };
+  React.useEffect(() => {
+    if (!activeMoment) {
+      setShowViewMore(false);
+      return;
+    }
+  
+    const timer = setTimeout(() => {
+      setShowViewMore(true);
+    }, 2000);
+  
+    return () => clearTimeout(timer);
+  }, [activeMoment]);
+  
 
 
   return (
@@ -29,7 +44,7 @@ const Page = forwardRef((props, ref) => {
           flexDirection: "column",
           justifyContent: "flex-start",
           position: "relative",
-          overflow: "hidden",
+          overflow: "visible",
         }}
       >
         {/* 🌸 MEMORY BACKGROUND DETAILS (cover only) */}
@@ -96,6 +111,7 @@ const Page = forwardRef((props, ref) => {
             zIndex: 2,
           }}
         >
+
           <Stack align="center" gap={0}>
             {isCover ? (
               <Box ta="center" mt={90} style={{ position: "relative" }}>
@@ -265,6 +281,30 @@ const Page = forwardRef((props, ref) => {
           >
             {activeMoment.bubbleStory}
           </Text>
+          {showViewMore && (
+  <Box
+    onPointerDown={stopFlip}
+    onMouseDown={stopFlip}
+    onTouchStart={stopFlip}
+    onClick={(e) => {
+      stopFlip(e);
+      onViewMore?.();
+    }}
+    style={{
+      marginTop: 12,
+      alignSelf: "center",
+      padding: "6px 14px",
+      borderRadius: 20,
+      background: "rgba(255,255,255,0.45)",
+      backdropFilter: "blur(6px)",
+      cursor: "pointer",
+      fontSize: 12,
+    }}
+  >
+    view more ✨
+  </Box>
+)}
+
         </motion.div>
       )}
       <Text

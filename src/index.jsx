@@ -1,19 +1,30 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
-import { MantineProvider, Container, ActionIcon, Group, Center, Box } from '@mantine/core';
+import { MantineProvider, Container, ActionIcon, Text, Group, Center, Box } from '@mantine/core';
 import { IconChevronLeft, IconChevronRight, IconHeartFilled } from '@tabler/icons-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Page from './memories.jsx';
 import { memories } from './memories.js';
 import { useMediaQuery } from "@mantine/hooks";
-import { useState } from "react";
 
 
 export default function MemoryBook() {
   const book = useRef();
   const isMobile = useMediaQuery("(max-width: 768px)");
   const [darkMode, setDarkMode] = useState(false);
- 
+  const [conversationOpen, setConversationOpen] = useState(false);
+  const [conversationLocked, setConversationLocked] = useState(false);
+  useEffect(() => {
+    if (!conversationOpen) return;
+  
+    const timer = setTimeout(() => {
+      setConversationOpen(false);
+    }, 10000);
+  
+    return () => clearTimeout(timer);
+  }, [conversationOpen]);
+  
+
   return (
     <Box style={{
       background: "rgba(255, 240, 245, 0.15)",
@@ -303,12 +314,56 @@ export default function MemoryBook() {
             
             {/* Content Pages */}
             {memories.map((m) => (
-              <Page key={m.id} memory={m} />
-            ))}
+  <Page
+    key={m.id}
+    memory={m}
+    isCover={false}
+  onViewMore={() => {
+    if (conversationLocked) return;
+
+    setConversationOpen(true);
+    setConversationLocked(true);
+
+    setTimeout(() => {
+      setConversationLocked(false);
+    }, 10000);
+  }}
+  />
+))}
 
             {/* End Page */}
             <Page memory={{ title: "To be continued...", story: "Every day is a new page with you.", color: '#F3F0FF' }} />
           </HTMLFlipBook>
+          {conversationOpen && (
+  <motion.div
+    initial={{ opacity: 0, x: -30, scale: 0.95 }}
+    animate={{ opacity: 1, x: 0, scale: 1 }}
+    exit={{ opacity: 0 }}
+    transition={{ duration: 0.6, ease: "easeOut" }}
+    style={{
+      position: "fixed",
+      left: 40,
+      top: "50%",
+      transform: "translateY(-50%)",
+      width: 260,
+      padding: 18,
+      borderRadius: 24,
+      background: "rgba(190,160,255,0.35)",
+      backdropFilter: "blur(14px)",
+      boxShadow: "0 20px 60px rgba(140,90,255,0.45)",
+      color: "#3a235f",
+      zIndex: 9999,
+      pointerEvents: "auto",
+    }}
+    onClick={(e) => e.stopPropagation()}
+  >
+    <Text size="sm" fs="italic" lh={1.6}>
+      “Do you remember this moment?  
+      I didn’t know then that it would become us.”
+    </Text>
+  </motion.div>
+)}
+
 
           {/* Navigation Controls */}
           <Group justify="center" mt="xl">
