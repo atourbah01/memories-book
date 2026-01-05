@@ -14,12 +14,14 @@ export default function MemoryBook() {
   const [darkMode, setDarkMode] = useState(false);
   const [conversationOpen, setConversationOpen] = useState(false);
   const [conversationLocked, setConversationLocked] = useState(false);
+  const [activeConversationMoment, setActiveConversationMoment] = useState(null);
+
   useEffect(() => {
     if (!conversationOpen) return;
   
     const timer = setTimeout(() => {
       setConversationOpen(false);
-    }, 10000);
+    }, 3000);
   
     return () => clearTimeout(timer);
   }, [conversationOpen]);
@@ -318,15 +320,16 @@ export default function MemoryBook() {
     key={m.id}
     memory={m}
     isCover={false}
-  onViewMore={() => {
+  onViewMore={(moment) => {
     if (conversationLocked) return;
 
+    setActiveConversationMoment(moment);
     setConversationOpen(true);
     setConversationLocked(true);
 
     setTimeout(() => {
       setConversationLocked(false);
-    }, 10000);
+    }, 3000);
   }}
   />
 ))}
@@ -335,34 +338,112 @@ export default function MemoryBook() {
             <Page memory={{ title: "To be continued...", story: "Every day is a new page with you.", color: '#F3F0FF' }} />
           </HTMLFlipBook>
           {conversationOpen && (
-  <motion.div
-    initial={{ opacity: 0, x: -30, scale: 0.95 }}
-    animate={{ opacity: 1, x: 0, scale: 1 }}
-    exit={{ opacity: 0 }}
-    transition={{ duration: 0.6, ease: "easeOut" }}
-    style={{
-      position: "fixed",
-      left: 40,
-      top: "50%",
-      transform: "translateY(-50%)",
-      width: 260,
-      padding: 18,
-      borderRadius: 24,
-      background: "rgba(190,160,255,0.35)",
-      backdropFilter: "blur(14px)",
-      boxShadow: "0 20px 60px rgba(140,90,255,0.45)",
-      color: "#3a235f",
-      zIndex: 9999,
-      pointerEvents: "auto",
-    }}
-    onClick={(e) => e.stopPropagation()}
-  >
-    <Text size="sm" fs="italic" lh={1.6}>
-      “Do you remember this moment?  
-      I didn’t know then that it would become us.”
-    </Text>
-  </motion.div>
-)}
+            <motion.div
+              initial={{ opacity: 0, x: -30, scale: 0.95 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              style={{
+                position: "fixed",
+                left: 40,
+                top: "50%",
+                transform: "translateY(-50%)",
+                width: 260,
+                padding: 18,
+                borderRadius: 24,
+                background: `
+                  linear-gradient(
+                    135deg,
+                    rgba(190,160,255,0.38) 0%,
+                    rgba(215,185,255,0.42) 45%,
+                    rgba(255,244,214,0.35) 100%
+                  )
+                `,
+                backdropFilter: "blur(14px)",
+                boxShadow: "0 20px 60px rgba(140,90,255,0.45)",
+                color: "#3a235f",
+                zIndex: 9999,
+                pointerEvents: "auto",
+              }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <Box
+                style={{
+                  position: "absolute",
+                  inset: -30,
+                  borderRadius: "50%",
+                  background: `
+                    radial-gradient(
+                      circle at 70% 30%,
+                      rgba(255,244,214,0.45),
+                      transparent 60%
+                    )
+                  `,
+                  filter: "blur(30px)",
+                  opacity: 0.6,
+                  pointerEvents: "none",
+                  zIndex: -1,
+                }}
+              />
+              {activeConversationMoment?.conversation && (
+              <Box
+              style={{
+                position: "relative",
+                padding: "14px 18px",
+                borderRadius: 10,
+                background: `
+                  linear-gradient(
+                    180deg,
+                    rgba(255,255,255,0.12),
+                    rgba(255,246,220,0.08)
+                  )
+                `,
+                backdropFilter: "blur(6px)",
+                boxShadow: "0 8px 24px rgba(0,0,0,0.12)",
+              }}
+              >
+                {/* ✦ FLOATING STAR */}
+                <motion.div
+                  animate={{ y: [0, -6, 0], opacity: [0.4, 0.8, 0.4] }}
+                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  style={{
+                    position: "absolute",
+                    top: 10,
+                    right: 16,
+                    fontSize: 10,
+                    color: "rgba(255,244,214,0.9)",
+                    pointerEvents: "none",
+                  }}
+                >
+                  ✦
+                </motion.div>
+
+                {/* SPARKLE OVERLAY */}
+              <Box
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  pointerEvents: "none",
+                  background: `
+                  radial-gradient(circle at 20% 30%, rgba(255,255,255,0.45), transparent 40%),
+                  radial-gradient(circle at 80% 60%, rgba(255,244,214,0.35), transparent 45%),
+                  radial-gradient(circle at 50% 80%, rgba(210,180,255,0.35), transparent 50%)
+                `,
+                opacity: 0.18,                
+                  borderRadius: 10,
+                }}
+              />
+                <Text size="sm" fw={500} c="#FFF6ED" mb={4} style={{fontStyle: "italic", textShadow: "0 0 6px rgba(230,217,255,0.6)",}} >
+                “{activeConversationMoment.conversation.question}
+                </Text>
+                <br />
+                <Text size="sm" fw={500} c="#2B2436" mb={4} style={{fontStyle: "italic", textShadow: "0 2px 6px rgba(0,0,0,0.35)",}} >
+                {activeConversationMoment.conversation.answer}”
+              </Text>
+            </Box>
+          )}
+            </motion.div>
+          )}
 
 
           {/* Navigation Controls */}

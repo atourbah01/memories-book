@@ -282,28 +282,64 @@ const Page = forwardRef(({ memory, isCover, onViewMore }, ref) => {
             {activeMoment.bubbleStory}
           </Text>
           {showViewMore && (
-  <Box
-    onPointerDown={stopFlip}
-    onMouseDown={stopFlip}
-    onTouchStart={stopFlip}
-    onClick={(e) => {
-      stopFlip(e);
-      onViewMore?.();
-    }}
-    style={{
-      marginTop: 12,
-      alignSelf: "center",
-      padding: "6px 14px",
-      borderRadius: 20,
-      background: "rgba(255,255,255,0.45)",
-      backdropFilter: "blur(6px)",
-      cursor: "pointer",
-      fontSize: 12,
-    }}
-  >
-    view more ✨
-  </Box>
-)}
+          <Box
+            onPointerDown={stopFlip}
+            onMouseDown={stopFlip}
+            onTouchStart={stopFlip}
+            onClick={(e) => {
+              stopFlip(e);
+              onViewMore?.(activeMoment);
+            }}
+            style={{
+              marginTop: 14,
+            alignSelf: "center",
+            padding: "8px 18px",
+
+            borderRadius: 999, // perfect pill
+            cursor: "pointer",
+
+            /* BUTTON SURFACE */
+            background: `
+              linear-gradient(
+                135deg,
+                rgba(255,255,255,0.75),
+                rgba(240,220,255,0.65)
+              )
+            `,
+            backdropFilter: "blur(10px)",
+
+            /* BORDER AURA */
+            border: "1px solid rgba(255,255,255,0.65)",
+
+            /* FLOATING DEPTH */
+            boxShadow: `
+              0 6px 14px rgba(160,120,200,0.25),
+              inset 0 1px 2px rgba(255,255,255,0.8)
+            `,
+
+            /* TEXT */
+            fontSize: 12,
+            fontWeight: 500,
+            color: "#3A2F4D",
+            letterSpacing: "0.2px",
+
+            /* SUBTLE MOTION */
+            transition: "all 0.25s ease",
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.transform = "translateY(-1px)";
+            e.currentTarget.style.boxShadow =
+              "0 10px 22px rgba(170,130,220,0.35)";
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.transform = "translateY(0)";
+            e.currentTarget.style.boxShadow =
+              "0 6px 14px rgba(160,120,200,0.25)";
+          }}
+          >
+            view more ✨
+          </Box>
+        )}
 
         </motion.div>
       )}
