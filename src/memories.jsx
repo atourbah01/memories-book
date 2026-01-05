@@ -6,7 +6,7 @@ const Page = forwardRef((props, ref) => {
   const { memory, isCover } = props;
   const [activeMoment, setActiveMoment] = useState(null);
   const stopFlip = (e) => {
-    //e.stopPropagation();
+    e.stopPropagation();
     e.preventDefault();
   };  
 
@@ -186,7 +186,7 @@ const Page = forwardRef((props, ref) => {
     mt="md"
     style={{
       display: "grid",
-      gridTemplateColumns: "1fr 1fr",
+      gridTemplateColumns: "1.1fr 0.9fr",
       gap: 16,
       width: "100%",
       //height: "100%",
@@ -202,6 +202,7 @@ const Page = forwardRef((props, ref) => {
           exit={{ opacity: 0, x: -20 }}
           transition={{ duration: 0.5, ease: "easeOut" }}
           style={{
+            position: "relative",
             background: "rgba(255,255,255,0.85)",
             borderRadius: 18,
             padding: 14,
@@ -209,10 +210,38 @@ const Page = forwardRef((props, ref) => {
               "0 10px 30px rgba(255,180,150,0.35)",
           }}
         >
+          <Box
+            onPointerDown={stopFlip}
+            onMouseDown={stopFlip}
+            onTouchStart={stopFlip}
+            onClick={(e) => {
+              stopFlip(e);
+              setActiveMoment(null);
+            }}
+            style={{
+              position: "absolute",
+              top: 8,
+              right: 8,
+              width: 24,
+              height: 24,
+              borderRadius: "50%",
+              background: "rgba(0,0,0,0.6)",
+              color: "#fff",
+              fontSize: 14,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              zIndex: 10,
+            }}
+          >
+            ✕
+          </Box>
+
           <Image
             src={activeMoment.image}
             radius="md"
-            h={120}
+            h={200}
             fit="cover"
           />
 
@@ -233,7 +262,7 @@ const Page = forwardRef((props, ref) => {
     <Box
       style={{
         display: "grid",
-        gridTemplateColumns: "repeat(2, 1fr)",
+        gridTemplateColumns: "1fr",
         gap: 12,
       }}
     >
