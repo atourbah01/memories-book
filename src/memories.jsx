@@ -306,18 +306,49 @@ const Page = forwardRef((props, ref) => {
           style={{
             cursor: "pointer",
             textAlign: "center",
+            padding: "10px 10px 14px",
+            background: "#fffdf9",
+            borderRadius: "12px 14px 10px 16px",
+            boxShadow:
+              activeMoment?.id === moment.id
+                ? "0 0 0 2px rgba(255,180,120,0.75)"
+                : "0 8px 18px rgba(0,0,0,0.14)",
+            clipPath: `
+              polygon(
+                0% 3%,
+                2% 0%,
+                98% 1%,
+                100% 4%,
+                99% 96%,
+                97% 100%,
+                3% 99%,
+                0% 96%
+              )
+            `,
+            backgroundImage: `
+              linear-gradient(
+                rgba(255,255,255,0.9),
+                rgba(255,255,255,0.9)
+              ),
+              repeating-linear-gradient(
+                -5deg,
+                rgba(0,0,0,0.02) 0px,
+                rgba(0,0,0,0.02) 1px,
+                transparent 2px,
+                transparent 4px
+              )
+            `,
           }}
         >
           <Image
             src={moment.thumbnail}
-            radius="md"
+            //radius="md"
             h={90}
             fit="cover"
             style={{
-              boxShadow:
-                activeMoment?.id === moment.id
-                  ? "0 0 0 2px rgba(255,180,120,0.8)"
-                  : "0 4px 10px rgba(0,0,0,0.12)",
+              display: "block",
+              borderRadius: 6,
+              boxShadow: "inset 0 0 0 1px rgba(0,0,0,0.05)",
             }}
           />
 
