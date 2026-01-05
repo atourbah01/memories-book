@@ -14,6 +14,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
           bubbleStory:
             "That moment when everything paused. I didn’t know yet, but this was the beginning of something real.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
         {
           id: "m2",
@@ -22,6 +26,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
           bubbleStory:
             "We didn’t speak much. Somehow, it said everything.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
         {
           id: "m3",
@@ -30,6 +38,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
           bubbleStory:
             "You smiled, and something settled gently inside my chest.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
       ],
     },
@@ -48,6 +60,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
           bubbleStory:
             "That moment when everything paused. I didn’t know yet, but this was the beginning of something real.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
         {
           id: "m2",
@@ -56,6 +72,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
           bubbleStory:
             "We didn’t speak much. Somehow, it said everything.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
         {
           id: "m3",
@@ -64,6 +84,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
           bubbleStory:
             "You smiled, and something settled gently inside my chest.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
       ],
     },
@@ -82,6 +106,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
           bubbleStory:
             "That moment when everything paused. I didn’t know yet, but this was the beginning of something real.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
         {
           id: "m2",
@@ -90,6 +118,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
           bubbleStory:
             "We didn’t speak much. Somehow, it said everything.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
         {
           id: "m3",
@@ -98,6 +130,10 @@ export const memories = [
           image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
           bubbleStory:
             "You smiled, and something settled gently inside my chest.",
+          memoryDialogue: {
+            question: "Do you remember this moment?",
+            answer: "I didn’t know then that it would become us."
+          }
         },
       ],
     }
