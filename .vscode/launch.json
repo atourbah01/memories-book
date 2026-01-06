@@ -16,7 +16,7 @@
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://127.0.0.1:5173",
-            "webRoot": "AT/Desktop/memories-book/index.html"
+            "webRoot": "index.html"
         }
     ]
 }

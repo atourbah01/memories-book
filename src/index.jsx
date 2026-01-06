@@ -1,6 +1,7 @@
+import RibbonLock from "./ribbonlock.jsx";
 import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
-import { MantineProvider, Container, ActionIcon, Text, Group, Center, Box } from '@mantine/core';
+import { MantineProvider, Modal, TextInput, Button, Container, ActionIcon, Text, Group, Center, Box } from '@mantine/core';
 import { IconChevronLeft, IconChevronRight, IconHeartFilled } from '@tabler/icons-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Page from './memories.jsx';
@@ -15,6 +16,9 @@ export default function MemoryBook() {
   const [conversationOpen, setConversationOpen] = useState(false);
   const [conversationLocked, setConversationLocked] = useState(false);
   const [activeConversationMoment, setActiveConversationMoment] = useState(null);
+  const [isBookLocked, setIsBookLocked] = useState(true);
+  const [showNamePrompt, setShowNamePrompt] = useState(false);
+  const [readerName, setReaderName] = useState("");
 
   useEffect(() => {
     if (!conversationOpen) return;
@@ -290,6 +294,15 @@ export default function MemoryBook() {
               }}
             />
           )}
+          <Box style={{ position: "relative" }}>
+  {/* 🔒 Ribbon overlay */}
+  {isBookLocked && (
+    <RibbonLock
+      isLocked={isBookLocked}
+      onUnlockRequest={() => setShowNamePrompt(true)}
+    />
+  )}
+
           <HTMLFlipBook  
             width={isMobile ? 300 : 400}
             height={isMobile ? 460 : 550}
@@ -337,6 +350,39 @@ export default function MemoryBook() {
             {/* End Page */}
             <Page memory={{ title: "To be continued...", story: "Every day is a new page with you.", color: '#F3F0FF', isEndPage: true }} />            
           </HTMLFlipBook>
+          </Box>
+          <Modal
+  opened={showNamePrompt}
+  onClose={() => {}}
+  centered
+  withCloseButton={false}
+  overlayOpacity={0.55}
+  overlayBlur={6}
+>
+  <Text ta="center" mb="sm">
+    Before opening this book…
+  </Text>
+
+  <TextInput
+    placeholder="Your name"
+    value={readerName}
+    onChange={(e) => setReaderName(e.target.value)}
+  />
+
+  <Button
+    fullWidth
+    mt="md"
+    radius="xl"
+    disabled={!readerName.trim()}
+    onClick={() => {
+      setIsBookLocked(false);
+      setShowNamePrompt(false);
+    }}
+  >
+    Enter ✨
+  </Button>
+</Modal>
+
           {conversationOpen && (
             <motion.div
               initial={{ opacity: 0, x: -30, scale: 0.95 }}
@@ -453,7 +499,9 @@ export default function MemoryBook() {
               color="pink" 
               size="xl" 
               radius="xl"
-              onClick={() => book.current?.pageFlip()?.flipPrev()}
+              onClick={() => {
+                if (isBookLocked) return;
+                book.current?.pageFlip()?.flipPrev()}}
             >
               <IconChevronLeft size={30} />
             </ActionIcon>
@@ -481,7 +529,9 @@ export default function MemoryBook() {
               color="pink" 
               size="xl" 
               radius="xl"
-              onClick={() => book.current.pageFlip().flipNext()}
+              onClick={() => {
+                if (isBookLocked) return;
+                book.current.pageFlip().flipNext()}}
             >
               <IconChevronRight size={30} />
             </ActionIcon>
