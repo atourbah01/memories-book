@@ -18,6 +18,7 @@ export default function MemoryBook() {
   const [activeConversationMoment, setActiveConversationMoment] = useState(null);
   const [isBookLocked, setIsBookLocked] = useState(true);
   const [showNamePrompt, setShowNamePrompt] = useState(false);
+  const [keepsakeReady, setKeepsakeReady] = useState(false);
   const [readerName, setReaderName] = useState("");
 
   useEffect(() => {
@@ -294,14 +295,15 @@ export default function MemoryBook() {
               }}
             />
           )}
-          <Box style={{ position: "relative" }}>
+          <Box style={{ position: "relative", overflow: "hidden" }}>
   {/* 🔒 Ribbon overlay */}
-  {isBookLocked && (
-    <RibbonLock
-      isLocked={isBookLocked}
-      onUnlockRequest={() => setShowNamePrompt(true)}
-    />
-  )}
+
+  <RibbonLock
+  isLocked={isBookLocked}
+  onUnlockRequest={() => setShowNamePrompt(true)}
+  onUnwrapComplete={() => { setKeepsakeReady(true);}}
+/>
+
 
           <HTMLFlipBook  
             width={isMobile ? 300 : 400}
@@ -356,8 +358,10 @@ export default function MemoryBook() {
   onClose={() => {}}
   centered
   withCloseButton={false}
-  overlayOpacity={0.55}
-  overlayBlur={6}
+  overlayProps={{
+    opacity: 0.55,
+    blur: 6,
+  }}
 >
   <Text ta="center" mb="sm">
     Before opening this book…
@@ -500,7 +504,7 @@ export default function MemoryBook() {
               size="xl" 
               radius="xl"
               onClick={() => {
-                if (isBookLocked) return;
+                if (isBookLocked || !keepsakeReady) return;
                 book.current?.pageFlip()?.flipPrev()}}
             >
               <IconChevronLeft size={30} />
@@ -530,7 +534,7 @@ export default function MemoryBook() {
               size="xl" 
               radius="xl"
               onClick={() => {
-                if (isBookLocked) return;
+                if (isBookLocked || !keepsakeReady) return;
                 book.current.pageFlip().flipNext()}}
             >
               <IconChevronRight size={30} />
