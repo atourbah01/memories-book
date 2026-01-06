@@ -408,7 +408,7 @@ export default function MemoryBook() {
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                   style={{
                     position: "absolute",
-                    top: 10,
+                    top: 16,
                     right: 16,
                     fontSize: 10,
                     color: "rgba(255,244,214,0.9)",

@@ -20,7 +20,7 @@ const Page = forwardRef(({ memory, isCover, onViewMore }, ref) => {
   
     const timer = setTimeout(() => {
       setShowViewMore(true);
-    }, 2000);
+    }, 1000);
   
     return () => clearTimeout(timer);
   }, [activeMoment]);
