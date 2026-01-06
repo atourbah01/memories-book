@@ -316,26 +316,26 @@ export default function MemoryBook() {
             
             {/* Content Pages */}
             {memories.map((m) => (
-  <Page
-    key={m.id}
-    memory={m}
-    isCover={false}
-  onViewMore={(moment) => {
-    if (conversationLocked) return;
+              <Page
+                key={m.id}
+                memory={m}
+                isCover={false}
+              onViewMore={(moment) => {
+                if (conversationLocked) return;
 
-    setActiveConversationMoment(moment);
-    setConversationOpen(true);
-    setConversationLocked(true);
+                setActiveConversationMoment(moment);
+                setConversationOpen(true);
+                setConversationLocked(true);
 
-    setTimeout(() => {
-      setConversationLocked(false);
-    }, 3000);
-  }}
-  />
-))}
+                setTimeout(() => {
+                  setConversationLocked(false);
+                }, 3000);
+              }}
+              />
+            ))}
 
             {/* End Page */}
-            <Page memory={{ title: "To be continued...", story: "Every day is a new page with you.", color: '#F3F0FF' }} />
+            <Page memory={{ title: "To be continued...", story: "Every day is a new page with you.", color: '#F3F0FF', isEndPage: true }} />            
           </HTMLFlipBook>
           {conversationOpen && (
             <motion.div

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 
 const Page = forwardRef(({ memory, isCover, onViewMore }, ref) => {
-  //const { memory, isCover } = props;
+  const isEndPage = memory?.isEndPage;
   const [activeMoment, setActiveMoment] = useState(null);
   const [showViewMore, setShowViewMore] = useState(false);
   const stopFlip = (e) => {
@@ -602,6 +602,77 @@ const Page = forwardRef(({ memory, isCover, onViewMore }, ref) => {
             )}
           </Stack>
         </motion.div>
+        {/* ✒️ END PAGE SIGNATURE */}
+{isEndPage && (
+  <Box
+    style={{
+      position: "absolute",
+      bottom: 60,
+      left: "50%",
+      transform: "translateX(-50%)",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: 120,
+      zIndex: 5,
+    }}
+  >
+    {/* subtle horizontal line */}
+    <Box
+      style={{
+        width: 200,
+        height: 1,
+        background: "rgba(40,40,40,0.35)",
+        borderRadius: 1,
+      }}
+    />
+
+    {/* SIGN BUTTON */}
+    <Box
+      style={{
+        padding: "8px 22px",
+        borderRadius: 999,
+
+        /* GLASSY DREAM SURFACE */
+        background: "rgba(255,255,255,0.18)",
+        backdropFilter: "blur(10px)",
+
+        /* VERY SOFT BORDER */
+        border: "1px solid rgba(255,255,255,0.35)",
+
+        /* FLOAT */
+        boxShadow: `
+          0 6px 18px rgba(120,90,180,0.25),
+          inset 0 1px 2px rgba(255,255,255,0.6)
+        `,
+
+        fontSize: 13,
+        fontWeight: 500,
+        letterSpacing: "0.12em",
+        color: "rgba(40,30,60,0.75)",
+
+        cursor: "pointer",
+        transition: "all 0.3s ease",
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.transform = "translateY(-1px)";
+        e.currentTarget.style.boxShadow =
+          "0 10px 26px rgba(140,110,210,0.35)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow =
+          "0 6px 18px rgba(120,90,180,0.25)";
+      }}
+      onClick={(e) => {
+        e.stopPropagation();
+        // 👈 you’ll tell me later what happens here
+      }}
+    >
+      Sign
+    </Box>
+  </Box>
+)}
       </Paper>
     </div>
   );
