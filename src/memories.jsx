@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 
 
-const Page = forwardRef(({ memory, isCover, onViewMore }, ref) => {
+const Page = forwardRef(({ memory, isCover, onViewMore, onSign }, ref) => {
   const isEndPage = memory?.isEndPage;
   const [activeMoment, setActiveMoment] = useState(null);
   const [showViewMore, setShowViewMore] = useState(false);
@@ -666,7 +666,8 @@ const Page = forwardRef(({ memory, isCover, onViewMore }, ref) => {
       }}
       onClick={(e) => {
         e.stopPropagation();
-        // 👈 you’ll tell me later what happens here
+        console.log("✍️ Sign button clicked");
+  onSign?.();
       }}
     >
       Sign

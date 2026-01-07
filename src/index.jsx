@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import HTMLFlipBook from 'react-pageflip';
 import { MantineProvider, Modal, TextInput, Button, Container, ActionIcon, Text, Group, Center, Box } from '@mantine/core';
 import { IconChevronLeft, IconChevronRight, IconHeartFilled } from '@tabler/icons-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useAnimation } from 'framer-motion';
 import Page from './memories.jsx';
 import { memories } from './memories.js';
 import { useMediaQuery } from "@mantine/hooks";
@@ -20,6 +20,9 @@ export default function MemoryBook() {
   const [showNamePrompt, setShowNamePrompt] = useState(false);
   const [keepsakeReady, setKeepsakeReady] = useState(false);
   const [readerName, setReaderName] = useState("");
+  const [isSigning, setIsSigning] = useState(false);
+  const [signatureDone, setSignatureDone] = useState(false);
+  const scale = getNameScale(readerName, 250);
 
   useEffect(() => {
     if (!conversationOpen) return;
@@ -350,7 +353,19 @@ export default function MemoryBook() {
             ))}
 
             {/* End Page */}
-            <Page memory={{ title: "To be continued...", story: "Every day is a new page with you.", color: '#F3F0FF', isEndPage: true }} />            
+            <Page
+  memory={{
+    title: "To be continued...",
+    story: "Every day is a new page with you.",
+    color: "#F3F0FF",
+    isEndPage: true,
+  }}
+  onSign={() => {
+    if (signatureDone) return;
+    setIsSigning(true);
+  }}
+/>
+          
           </HTMLFlipBook>
           </Box>
           <Modal
@@ -549,7 +564,17 @@ export default function MemoryBook() {
           pointerEvents: "none",
         }}
       >
-        <TeddyPencil />
+        <TeddyPencil
+  isSigning={isSigning}
+  signatureDone={signatureDone}
+  name={readerName}
+  scale={scale}
+  onComplete={() => {
+    setIsSigning(false);
+    setSignatureDone(true);
+  }}
+/>
+
       </Box>
     )}
         </Box>
@@ -557,10 +582,125 @@ export default function MemoryBook() {
     </Box>
 );
 }
-function TeddyPencil() {
+function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone }) {
+  console.log("✏️ TeddyPencil render", { isSigning, name });
+  const pencilCtrl = useAnimation();
+  const textCtrl = useAnimation();
+  useEffect(() => {
+    console.log("🖊 useEffect fired, isSigning =", isSigning);
+    if (!isSigning) return;
+    console.log("🚀 STARTING SIGN ANIMATION");
+
+    (async () => {
+
+      // Reset signature
+      await textCtrl.set({ pathLength: 0 });
+
+      // Move pencil into writing position
+      await pencilCtrl.start({
+        x: -460,
+        y: -160,
+        rotate: -12,
+        scale: 0.8,
+        transition: { type: "spring", stiffness: 90, damping: 18, },
+      });
+
+      // Write name
+      await textCtrl.start({
+        pathLength: 1,
+        transition: { duration: 2.6, ease: "easeInOut" },
+      });
+
+      // Optional special message
+      if (name.trim().toLowerCase() === "x") {
+        await new Promise((r) => setTimeout(r, 400));
+      }
+
+      // Move pencil back
+      await pencilCtrl.start({
+        x: 0,
+        y: 0,
+        rotate: 0,
+        transition: { type: "spring", stiffness: 80, damping: 20 },
+      });
+
+      onComplete?.();
+    })();
+  }, [isSigning, name, onComplete, pencilCtrl, textCtrl]);
+
   return (
-    <motion.div
-      animate={{ y: [0, -6, 0] }}
+    <>
+    <Box
+  style={{
+    position: "absolute",
+    bottom: 270,
+    left: "35%",
+    transform: "translateX(-50%)",
+    width: 250,
+    pointerEvents: "none",
+    overflow: "visible",
+  }}
+>
+      {/* ✨ SIGNATURE */}
+      {(isSigning || signatureDone) && (
+      <motion.svg
+        width={250}
+        height={100}
+        viewBox={`0 0 250 100`}
+        style={{
+          opacity: 1,
+          transform: `scale(${scale})`,
+          transformOrigin: "center",
+        }}
+      >
+        <motion.path
+          d={generateSignaturePath(name, 250)}
+          fill="none"
+          stroke="url(#sparkle)"
+          strokeWidth="3"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ pathLength: 0}}
+          animate={textCtrl}
+          style={{
+            filter:
+              "drop-shadow(0 0 6px rgba(255,220,255,0.3)) drop-shadow(0 0 16px rgba(200,150,255,0.2))",
+          }}
+        />
+        <defs>
+          <linearGradient id="sparkle" >
+            <stop offset="0%" stopColor="#f2d3e1" />
+            <stop offset="50%" stopColor="#e5a5ff" />
+            <stop offset="100%" stopColor="#c9a6ff" />
+          </linearGradient>
+        </defs>
+      </motion.svg>
+      )}
+      </Box>
+
+      {/* 💖 EXTRA MESSAGE */}
+      {name.trim().toLowerCase() === "x" && (
+        <motion.div
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: isSigning ? 1 : 0 }}
+          transition={{ delay: 5.0 }}
+          style={{
+            position: "absolute",
+            bottom: 200,
+            left: "42%",
+            transform: "translateX(-50%)",
+            fontFamily: "'Dancing Script', cursive",
+            fontSize: 22,
+            color: "#ffd1ec",
+            textShadow: "0 0 12px rgba(255,190,240,0.9)",
+          }}
+        >
+          i love you :)
+        </motion.div>
+      )}
+
+    <motion.div 
+      animate={pencilCtrl}
       transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       style={{ width: 120, transform: "scale(0.75)", transformOrigin: "top center", }}
     >
@@ -571,7 +711,7 @@ function TeddyPencil() {
             transform: "scale(0.6)",
             transformOrigin: "top center",
             position: "relative",
-            marginTop: 20,
+            marginTop: 30,
             marginBottom: -80,
             zIndex: 2,
           }}
@@ -1073,7 +1213,8 @@ function TeddyPencil() {
         <Box
           style={{
             width: 14,
-            height: 220,
+            height: 320,
+            transform: "scale(1.1)",
             background: "linear-gradient(180deg, #f9d2df 0%, #f6c1d1 50%, #eaa6bb 100%)",
             margin: "-6px auto 0",
             borderRadius: "7px",
@@ -1132,5 +1273,273 @@ function TeddyPencil() {
         </Box>
       </Box>
     </motion.div>
+    </>
   );
+}
+const LETTER_STROKES = {
+  // ---------- ROUND CORE ----------
+  a: (x) => `
+   M ${x+20} 50
+   C ${x+5} 45, ${x+5} 78, ${x+20} 78 
+   C ${x+35} 78, ${x+35} 45, ${x+20} 45 
+   C ${x+35} 45, ${x+35} 78, ${x+35} 82
+  `,
+
+  o: (x) => `
+    M ${x+20} 45
+    C ${x+5} 45, ${x+5} 75, ${x+20} 75
+    C ${x+35} 75, ${x+35} 45, ${x+20} 45
+  `,
+
+  c: (x) => `
+    M ${x+35} 50
+    C ${x+15} 40, ${x+5} 55, ${x+5} 60
+    C ${x+5} 70, ${x+15} 80, ${x+35} 70
+  `,
+
+  e: (x) => `
+    M ${x+35} 60
+    C ${x+15} 40, ${x+5} 55, ${x+5} 60
+    C ${x+5} 75, ${x+20} 80, ${x+35} 65
+    M ${x+12} 60 L ${x+32} 60
+  `,
+
+  s: (x) => `
+    M ${x+35} 50
+    C ${x+15} 40, ${x+10} 55, ${x+25} 60
+    C ${x+40} 65, ${x+30} 80, ${x+10} 75
+  `,
+
+  // ---------- TALL / ASCENDERS ----------
+  b: (x) => `
+    M ${x+15} 30
+    L ${x+15} 90
+    M ${x+15} 60
+    C ${x+35} 45, ${x+35} 75, ${x+15} 75
+  `,
+
+  d: (x) => `
+    M ${x+30} 30
+    L ${x+30} 90
+    M ${x+30} 60
+    C ${x+5} 45, ${x+5} 75, ${x+30} 75
+  `,
+
+  f: (x) => `
+    M ${x + 48} 42
+    C ${x + 40} 28, ${x + 20} 32, ${x + 26} 46
+    L ${x + 26} 90
+    M ${x + 44} 58
+    Q ${x + 28} 54, ${x + 14} 58
+  `,
+
+  h: (x) => `
+    M ${x+10} 30
+    L ${x+10} 90
+    M ${x+10} 60
+    C ${x+25} 45, ${x+40} 55, ${x+40} 75
+    L ${x+40} 85
+  `,
+
+  k: (x) => `
+    M ${x+15} 30
+    L ${x+15} 90
+    M ${x+15} 60
+    C ${x+35} 45, ${x+25} 55, ${x+40} 45
+    M ${x+15} 60
+    C ${x+35} 75, ${x+25} 65, ${x+40} 75
+  `,
+
+  l: (x) => `
+    M ${x+20} 30
+    C ${x+18} 55, ${x+18} 75, ${x+20} 90
+  `,
+
+  t: (x) => `
+    M ${x+25} 30
+    L ${x+25} 90
+    M ${x+10} 50 L ${x+40} 50
+  `,
+
+  // ---------- SHORT CONNECTED ----------
+  i: (x) => `
+    M ${x+20} 45
+    L ${x+20} 75
+    M ${x+20} 35
+    C ${x+18} 33, ${x+22} 33, ${x+20} 35
+  `,
+
+  j: (x) => `
+    M ${x+20} 45
+    L ${x+20} 85
+    C ${x+20} 100, ${x+5} 95, ${x+10} 85
+    M ${x+20} 35
+    C ${x+18} 33, ${x+22} 33, ${x+20} 35
+  `,
+
+  r: (x) => `
+    M ${x+15} 45
+    L ${x+15} 75
+    M ${x+15} 55
+    C ${x+30} 45, ${x+35} 55, ${x+25} 60
+  `,
+
+  m: (x) => `
+    M ${x+10} 45
+    L ${x+10} 75
+    M ${x+10} 55
+    C ${x+22} 45, ${x+32} 55, ${x+32} 75
+    M ${x+32} 55
+    C ${x+44} 45, ${x+54} 55, ${x+54} 75
+  `,
+
+  n: (x) => `
+    M ${x+15} 45
+    L ${x+15} 75
+    M ${x+15} 55
+    C ${x+28} 45, ${x+40} 55, ${x+40} 75
+  `,
+
+  u: (x) => `
+    M ${x+10} 45
+    C ${x+10} 70, ${x+22} 75, ${x+28} 65
+    L ${x+28} 45
+  `,
+
+  // ---------- DESCENDERS ----------
+  g: (x) => `
+    M ${x+20} 60
+    C ${x+5} 45, ${x+5} 75, ${x+20} 75
+    C ${x+35} 75, ${x+35} 45, ${x+20} 45
+    M ${x+30} 75
+    C ${x+35} 95, ${x+10} 100, ${x+10} 85
+  `,
+
+  p: (x) => `
+    M ${x+15} 55
+    L ${x+15} 105
+    M ${x+15} 60
+    C ${x+35} 45, ${x+35} 75, ${x+15} 75
+  `,
+
+  q: (x) => `
+    M ${x+35} 55
+    L ${x+35} 105
+    M ${x+35} 60
+    C ${x+15} 45, ${x+15} 75, ${x+35} 75
+  `,
+
+  y: (x) => `
+    M ${x+10} 45
+    C ${x+20} 65, ${x+30} 65, ${x+40} 45
+    M ${x+30} 65
+    C ${x+30} 90, ${x+15} 95, ${x+10} 105
+  `,
+
+  // ---------- ANGULAR ----------
+  v: (x) => `
+    M ${x+10} 45
+    L ${x+25} 75
+    L ${x+40} 45
+  `,
+
+  w: (x) => `
+    M ${x+10} 45
+    L ${x+20} 75
+    L ${x+30} 45
+    L ${x+40} 75
+    L ${x+50} 45
+  `,
+
+  x: (x) => `
+    M ${x+10} 45 L ${x+40} 75
+    M ${x+40} 45 L ${x+10} 75
+  `,
+
+  z: (x) => `
+    M ${x+10} 45
+    L ${x+40} 45
+    L ${x+10} 75
+    L ${x+40} 75
+  `,
+
+  // ---------- DEFAULT ----------
+  default: (x) => `
+    M ${x} 60
+    L ${x+20} 60
+  `,
+  "-": (x) => `
+    M ${x+10} 60
+    L ${x+30} 60
+  `,
+};
+
+const LETTER_WIDTHS = {
+  i: 25,
+  l: 15,
+  j: 25,
+  r: 25,
+  t: 28,
+
+  a: 30,
+  b: 29,
+  c: 32,
+  d: 29,
+  e: 35,
+  f: 25,
+  g: 25,
+  h: 35,
+  k: 30,
+  m: 40,
+  n: 40,
+  o: 28,
+  p: 25,
+  q: 25,
+  s: 30,
+  u: 25,
+  v: 33,
+  w: 40,
+  x: 25,
+  y: 25,
+  z: 25,
+
+  default: 25,
+};
+
+function getNameWidth(name) {
+  let width = 0;
+
+  for (const char of name) {
+    const lower = char.toLowerCase();
+    const isUpper = char !== lower;
+
+    const letterWidth =
+      LETTER_WIDTHS[lower] || LETTER_WIDTHS.default;
+
+    width += isUpper ? letterWidth * 1.15 : letterWidth;
+  }
+
+  return width;
+}
+
+function generateSignaturePath(name, svgWidth) {
+  const totalWidth = getNameWidth(name);
+  let x = (svgWidth - totalWidth) / 2;
+  let d = "";
+
+  for (const char of name) {
+    const lower = char.toLowerCase();
+    const stroke = LETTER_STROKES[lower] || LETTER_STROKES.default;
+    d += stroke(x);
+    x += LETTER_WIDTHS[lower] || LETTER_WIDTHS.default;
+  }
+
+  return d;
+}
+
+function getNameScale(name, svgWidth = 250) {
+  const nameWidth = getNameWidth(name);
+  if (nameWidth <= svgWidth) return 1;
+  const scale = svgWidth / nameWidth;
+  return Math.max(0.75, scale);
 }
