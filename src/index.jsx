@@ -1541,8 +1541,7 @@ function generateSignaturePath(name, svgWidth) {
     const stroke = LETTER_STROKES[lower] || LETTER_STROKES.default;
     d += stroke(x);
     x += LETTER_WIDTHS[lower] || LETTER_WIDTHS.default;
-  }
-
+  } 
   return d;
 }
 
