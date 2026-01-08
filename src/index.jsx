@@ -384,7 +384,7 @@ export default function MemoryBook() {
   </Text>
 
   <TextInput
-    placeholder="Your name"
+    placeholder="Your First Name"
     value={readerName}
     onChange={(e) => setReaderName(e.target.value)}
   />
@@ -623,14 +623,14 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
       await Promise.all([
         textCtrl.start({
           pathLength: 1,
-          transition: { duration: 0.48 * letters.length, ease: "linear" },
+          transition: { duration: 0.5 * letters.length, ease: "linear" },
         }),
       
         pencilCtrl.start({
           x: [ WORLD_START_X-5, WORLD_END_X ],
           y: [-160, -155, -160],
           transition: { 
-            x: { duration: 0.48 * letters.length, ease: "linear" },
+            x: { duration: 0.5 * letters.length, ease: "linear" },
             y: { duration: 0.35, repeat: 1.15 * letters.length, ease: "easeInOut" },
           },
         }),
@@ -1531,9 +1531,9 @@ const LETTER_WIDTHS = {
   t: 35,
 
   a: 35,
-  b: 32,
+  b: 31,
   c: 32,
-  d: 32,
+  d: 31,
   e: 30,
   f: 40,
   g: 35,
