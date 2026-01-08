@@ -23,6 +23,7 @@ export default function MemoryBook() {
   const [isSigning, setIsSigning] = useState(false);
   const [signatureDone, setSignatureDone] = useState(false);
   const scale = getNameScale(readerName, 250);
+  const letters = generateSignatureLetters(readerName, 250)
 
   useEffect(() => {
     if (!conversationOpen) return;
@@ -569,6 +570,7 @@ export default function MemoryBook() {
   signatureDone={signatureDone}
   name={readerName}
   scale={scale}
+  letters={letters}
   onComplete={() => {
     setIsSigning(false);
     setSignatureDone(true);
@@ -582,7 +584,8 @@ export default function MemoryBook() {
     </Box>
 );
 }
-function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone }) {
+
+function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letters }) {
   console.log("✏️ TeddyPencil render", { isSigning, name });
   const pencilCtrl = useAnimation();
   const textCtrl = useAnimation();
@@ -653,20 +656,37 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone }) {
           transformOrigin: "center",
         }}
       >
+        {generateSignatureLetters(name,250).map(({ path, index }) => (
         <motion.path
-          d={generateSignaturePath(name, 250)}
-          fill="none"
-          stroke="url(#sparkle)"
-          strokeWidth="3"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          initial={{ pathLength: 0}}
-          animate={textCtrl}
-          style={{
-            filter:
-              "drop-shadow(0 0 6px rgba(255,220,255,0.3)) drop-shadow(0 0 16px rgba(200,150,255,0.2))",
-          }}
+        key={index}
+        d={path}
+        fill="none"
+        stroke="url(#sparkle)"
+        strokeWidth="3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        initial={{ pathLength: 0, opacity: 0 }}
+        animate={{
+          pathLength: isSigning || signatureDone ? 1 : 0,
+          opacity: 1,
+        }}
+        transition={{
+          pathLength: {
+            duration: 0.6,
+            ease: "easeInOut",
+            delay: index * 0.18, // 👈 THIS creates left-to-right writing
+          },
+          opacity: {
+            duration: 0.2,
+            delay: index * 0.18,
+          },
+        }}
+        style={{
+          filter:
+            "drop-shadow(0 0 6px rgba(255,220,255,0.3)) drop-shadow(0 0 16px rgba(200,150,255,0.2))",
+        }}
         />
+        ))}
         <defs>
           <linearGradient id="sparkle" >
             <stop offset="0%" stopColor="#f2d3e1" />
@@ -679,23 +699,23 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone }) {
       </Box>
 
       {/* 💖 EXTRA MESSAGE */}
-      {name.trim().toLowerCase() === "x" && (
+      {name.trim().toLowerCase() === "x" && (isSigning || signatureDone) && (
         <motion.div
           initial={{ opacity: 0, y: 6 }}
-          animate={{ opacity: isSigning ? 1 : 0 }}
-          transition={{ delay: 5.0 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4, duration: 1.0 }}
           style={{
             position: "absolute",
             bottom: 200,
-            left: "42%",
+            left: "40%",
             transform: "translateX(-50%)",
             fontFamily: "'Dancing Script', cursive",
             fontSize: 22,
             color: "#ffd1ec",
-            textShadow: "0 0 12px rgba(255,190,240,0.9)",
+            textShadow: "0 0 12px rgba(255,190,240,0.4)",
           }}
         >
-          i love you :)
+          he likes you :)
         </motion.div>
       )}
 
@@ -1408,11 +1428,11 @@ const LETTER_STROKES = {
 
   // ---------- DESCENDERS ----------
   g: (x) => `
-    M ${x+20} 60
-    C ${x+5} 45, ${x+5} 75, ${x+20} 75
-    C ${x+35} 75, ${x+35} 45, ${x+20} 45
-    M ${x+30} 75
-    C ${x+35} 95, ${x+10} 100, ${x+10} 85
+    M ${x+22} 60
+    C ${x+8} 48, ${x+8} 78, ${x+22} 78
+    C ${x+36} 78, ${x+36} 48, ${x+22} 48
+    C ${x+36} 48, ${x+40} 90, ${x+24} 98
+    C ${x+8} 106, ${x+10} 84, ${x+28} 86
   `,
 
   p: (x) => `
@@ -1430,11 +1450,10 @@ const LETTER_STROKES = {
   `,
 
   y: (x) => `
-    M ${x+10} 45
-    C ${x+20} 65, ${x+30} 65, ${x+40} 45
-    M ${x+30} 65
-    C ${x+30} 90, ${x+15} 95, ${x+10} 105
-  `,
+  M ${x+10} 45
+  C ${x+20} 65, ${x+25} 65, ${x+30} 45
+  C ${x+30} 65, ${x+30} 90, ${x+10} 105
+`,
 
   // ---------- ANGULAR ----------
   v: (x) => `
@@ -1484,33 +1503,33 @@ const LETTER_STROKES = {
 };
 
 const LETTER_WIDTHS = {
-  i: 25,
-  l: 15,
+  i: 23,
+  l: 17,
   j: 25,
-  r: 25,
-  t: 28,
+  r: 30,
+  t: 35,
 
-  a: 32,
-  b: 29,
+  a: 35,
+  b: 32,
   c: 32,
-  d: 29,
-  e: 35,
-  f: 25,
-  g: 25,
-  h: 25,
-  k: 30,
-  m: 40,
+  d: 32,
+  e: 30,
+  f: 40,
+  g: 35,
+  h: 30,
+  k: 35,
+  m: 55,
   n: 40,
   o: 28,
-  p: 25,
-  q: 25,
+  p: 29,
+  q: 29,
   s: 32,
   u: 25,
-  v: 33,
-  w: 40,
-  x: 25,
-  y: 25,
-  z: 25,
+  v: 36,
+  w: 44,
+  x: 34,
+  y: 32,
+  z: 34,
 
   default: 25,
 };
@@ -1550,4 +1569,20 @@ function getNameScale(name, svgWidth = 250) {
   if (nameWidth <= svgWidth) return 1;
   const scale = svgWidth / nameWidth;
   return Math.max(0.75, scale);
+}
+
+function generateSignatureLetters(name, svgWidth) {
+  const totalWidth = getNameWidth(name);
+  let x = (svgWidth - totalWidth) / 2;
+
+  return name.split("").map((char, index) => {
+    const lower = char.toLowerCase();
+    const stroke = LETTER_STROKES[lower] || LETTER_STROKES.default;
+    const path = stroke(x);
+    const width = LETTER_WIDTHS[lower] || LETTER_WIDTHS.default;
+
+    x += width;
+
+    return { path, index };
+  });
 }
