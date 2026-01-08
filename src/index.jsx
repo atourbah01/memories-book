@@ -80,7 +80,7 @@ export default function MemoryBook() {
           </motion.div>
       </div>
 
-      <Center h="100vh">
+      <Center h="100dvh">
       <Box style={{ position: "relative", display: "flex", alignItems: "center" }}>
         <Container>
         {darkMode && (
@@ -317,9 +317,9 @@ export default function MemoryBook() {
             width={isMobile ? 300 : 400}
             height={isMobile ? 460 : 550}
             size="fixed"
-            minWidth={315}
+            minWidth={isMobile ? 280 :315}
             maxWidth={900}
-            minHeight={420}
+            minHeight={isMobile ? 420 :420}
             maxHeight={1200}
             maxShadowOpacity={0.3}
             showCover={true}
@@ -576,11 +576,12 @@ export default function MemoryBook() {
           </Group>
         </Container>
         {/* 🧸 Teddy Pencil */}
-    {!isMobile && (
       <Box
         style={{
-          marginLeft: 60,
+          marginLeft: isMobile ? 0 : 60,
           pointerEvents: "none",
+          transform: isMobile ? "scale(0.8)" : "none",
+          transformOrigin: "center bottom",
         }}
       >
         <TeddyPencil
@@ -591,6 +592,7 @@ export default function MemoryBook() {
   letters={letters}
   onLastPage={onLastPage}
   showSignature={showSignature}
+  isMobile= {isMobile}
   onComplete={() => {
     setIsSigning(false);
     setSignatureDone(true);
@@ -598,14 +600,13 @@ export default function MemoryBook() {
 />
 
       </Box>
-    )}
         </Box>
       </Center>
     </Box>
 );
 }
 
-function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letters, onLastPage, showSignature }) {
+function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letters, onLastPage, showSignature, isMobile }) {
   console.log("✏️ TeddyPencil render", { isSigning, name });
   const pencilCtrl = useAnimation();
   const textCtrl = useAnimation();
@@ -617,22 +618,24 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
   const sigEnd = sigStart + nameWidth;
 
   // map svg-space → world-space (your -460 anchor)
-  const WORLD_START_X = -500 + sigStart;
-  const WORLD_END_X = -500 + sigEnd;
+  const WORLD_BASE_X = isMobile ? -SVG_WIDTH / 2 : -500;
+  const WORLD_START_X = WORLD_BASE_X + sigStart;
+  const WORLD_END_X = WORLD_BASE_X + sigEnd;
+
 
   useEffect(() => {
     console.log("🖊 useEffect fired, isSigning =", isSigning);
-    if (!isSigning) return;
+    if (!isSigning || signatureDone) return;
     console.log("🚀 STARTING SIGN ANIMATION");
 
     (async () => {
 
       // Reset signature
-        textCtrl.set({ pathLength: 0 }); 
+      textCtrl.set({ pathLength: 0 }); 
 
       // Move pencil into writing position
       await pencilCtrl.start({
-        x: WORLD_START_X-5,
+        x: WORLD_START_X * scale - 5,
         y: -160,
         rotate: -12,
         scale: 0.8,
@@ -643,14 +646,14 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
       await Promise.all([
         textCtrl.start({
           pathLength: 1,
-          transition: { duration: 0.5 * letters.length, ease: "linear" },
+          transition: { duration: 0.54 * letters.length, ease: "linear" },
         }),
       
         pencilCtrl.start({
-          x: [ WORLD_START_X-5, WORLD_END_X ],
+          x: [ WORLD_START_X * scale - 5, WORLD_END_X * scale - 5 ],
           y: [-160, -155, -160],
           transition: { 
-            x: { duration: 0.5 * letters.length, ease: "linear" },
+            x: { duration: 0.54 * letters.length, ease: "linear" },
             y: { duration: 0.35, repeat: 1.15 * letters.length, ease: "easeInOut" },
           },
         }),
@@ -672,7 +675,7 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
 
       onComplete?.();
     })();
-  }, [isSigning, name, onComplete, pencilCtrl, textCtrl]);
+  }, [isSigning]);
 
   return (
     <>
@@ -684,7 +687,7 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
     transform: "translateX(-50%)",
     width: 250,
     pointerEvents: "none",
-    overflow: "visible",
+    //overflow: "visible",
   }}
 >
       {/* ✨ SIGNATURE */}
@@ -695,6 +698,8 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
         viewBox={`0 0 250 100`}
         style={{
           opacity: 1,
+          overflow: "visible",
+          WebkitOverflowScrolling: "touch",
         }}
       >
         {generateSignatureLetters(name, 250).map(({ path, index }) =>
@@ -714,11 +719,12 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
         pathLength: {
           duration: 0.6,
           ease: "easeInOut",
-          delay: 0.4 + index * 0.55,
+          delay: 0.35 + index * 0.54,
         },
         opacity: {
           duration: 0.2,
-          delay: 0.4 + index * 0.55,
+          ease: "easeInOut",
+          delay: 0.35 + index * 0.54,
         },
       }}
       style={{
@@ -770,11 +776,11 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
       </Box>
 
       {/* 💖 EXTRA MESSAGE */}
-      {name.trim().toLowerCase().includes("shourouk")  && onLastPage && showSignature && (signatureDone) && (
+      {name.trim().toLowerCase().includes("shourouk")  && onLastPage  && showSignature && signatureDone && (
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 1.0 }}
+          transition={{ delay: 0.1, duration: 0.4 }}
           style={{
             position: "absolute",
             bottom: 200,
@@ -792,7 +798,7 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
 
     <motion.div 
       animate={pencilCtrl}
-      transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+      transition={{ duration: 4, repeat: isMobile ? 0 : Infinity, ease: "easeInOut" }}
       style={{ width: 120, transform: "scale(0.75)", transformOrigin: "top center", }}
     >
       <Box style={{ position: "relative", width: 120, margin: "0 auto" }}>
@@ -1627,7 +1633,7 @@ function getNameScale(name, svgWidth = 250) {
   const nameWidth = getNameWidth(name);
   if (nameWidth <= svgWidth) return 1;
   const scale = svgWidth / nameWidth;
-  return Math.max(0.1, scale);
+  return Math.max(0.75, scale);
 }
 
 function generateSignatureLetters(name, svgWidth) {
