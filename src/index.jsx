@@ -1641,7 +1641,6 @@ function generateSignatureLetters(name, svgWidth) {
   name.split("").forEach((char, index) => {
     const lower = char.toLowerCase();
 
-    // SPACE → move cursor only
     if (lower === " ") {
       x += LETTER_WIDTHS[" "] * scale;
       return;
@@ -1659,4 +1658,3 @@ function generateSignatureLetters(name, svgWidth) {
 
   return letters;
 }
-
