@@ -1571,20 +1571,6 @@ function getNameWidth(name) {
   return width;
 }
 
-function generateSignaturePath(name, svgWidth) {
-  const totalWidth = getNameWidth(name);
-  let x = (svgWidth - totalWidth) / 2;
-  let d = "";
-
-  for (const char of name) {
-    const lower = char.toLowerCase();
-    const stroke = LETTER_STROKES[lower] || LETTER_STROKES.default;
-    d += stroke(x);
-    x += LETTER_WIDTHS[lower] || LETTER_WIDTHS.default;
-  } 
-  return d;
-}
-
 function getNameScale(name, svgWidth = 250) {
   const nameWidth = getNameWidth(name);
   if (nameWidth <= svgWidth) return 1;
