@@ -1,10 +1,10 @@
-# fly.toml app configuration file generated for memories-book-batofa on 2026-01-08T23:49:47Z
+# fly.toml app configuration file generated for memories-book on 2026-01-08T23:57:00Z
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'memories-book-batofa'
-primary_region = 'cdg'
+app = 'memories-book'
+primary_region = 'iad'
 
 [build]
 
