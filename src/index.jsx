@@ -675,8 +675,6 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
         viewBox={`0 0 250 100`}
         style={{
           opacity: 1,
-          transform: `scale(${scale})`,
-          transformOrigin: "center",
         }}
       >
         {generateSignatureLetters(name,250).map(({ path, index }) => (
@@ -1595,14 +1593,18 @@ function getNameScale(name, svgWidth = 250) {
 }
 
 function generateSignatureLetters(name, svgWidth) {
-  const totalWidth = getNameWidth(name);
-  let x = (svgWidth - totalWidth) / 2;
+  const rawWidth = getNameWidth(name);
+  const scale = getNameScale(name, svgWidth-10);
+  const scaledWidth = rawWidth * scale;
+
+  let x = ((svgWidth-10) - scaledWidth) / 2;
 
   return name.split("").map((char, index) => {
     const lower = char.toLowerCase();
     const stroke = LETTER_STROKES[lower] || LETTER_STROKES.default;
+
     const path = stroke(x);
-    const width = LETTER_WIDTHS[lower] || LETTER_WIDTHS.default;
+    const width = (LETTER_WIDTHS[lower] || LETTER_WIDTHS.default) * scale;
 
     x += width;
 
