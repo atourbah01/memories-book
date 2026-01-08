@@ -589,6 +589,17 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
   console.log("✏️ TeddyPencil render", { isSigning, name });
   const pencilCtrl = useAnimation();
   const textCtrl = useAnimation();
+  const SVG_WIDTH = 250;
+  const nameWidth = getNameWidth(name) * scale;
+
+  // where the signature ACTUALLY starts/ends in the svg
+  const sigStart = (SVG_WIDTH - nameWidth) / 2;
+  const sigEnd = sigStart + nameWidth;
+
+  // map svg-space → world-space (your -460 anchor)
+  const WORLD_START_X = -500 + sigStart;
+  const WORLD_END_X = -500 + sigEnd;
+
   useEffect(() => {
     console.log("🖊 useEffect fired, isSigning =", isSigning);
     if (!isSigning) return;
@@ -601,22 +612,34 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
 
       // Move pencil into writing position
       await pencilCtrl.start({
-        x: -460,
+        x: WORLD_START_X-5,
         y: -160,
         rotate: -12,
         scale: 0.8,
-        transition: { type: "spring", stiffness: 90, damping: 18, },
+        transition: { type: "spring", stiffness: 95, damping: 16, },
       });
 
       // Write name
-      await textCtrl.start({
-        pathLength: 1,
-        transition: { duration: 2.6, ease: "easeInOut" },
-      });
+      await Promise.all([
+        textCtrl.start({
+          pathLength: 1,
+          transition: { duration: 0.48 * letters.length, ease: "linear" },
+        }),
+      
+        pencilCtrl.start({
+          x: [ WORLD_START_X-5, WORLD_END_X ],
+          y: [-160, -155, -160],
+          transition: { 
+            x: { duration: 0.48 * letters.length, ease: "linear" },
+            y: { duration: 0.35, repeat: 1.15 * letters.length, ease: "easeInOut" },
+          },
+        }),
+      ]);
+      
 
       // Optional special message
       if (name.trim().toLowerCase() === "x") {
-        await new Promise((r) => setTimeout(r, 400));
+        await new Promise((r) => setTimeout(r, 500));
       }
 
       // Move pencil back
@@ -674,11 +697,11 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
           pathLength: {
             duration: 0.6,
             ease: "easeInOut",
-            delay: index * 0.18, // 👈 THIS creates left-to-right writing
+            delay: 0.4+index * 0.55, // 👈 THIS creates left-to-right writing
           },
           opacity: {
             duration: 0.2,
-            delay: index * 0.18,
+            delay: 0.4+index * 0.55,
           },
         }}
         style={{
@@ -699,7 +722,7 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
       </Box>
 
       {/* 💖 EXTRA MESSAGE */}
-      {name.trim().toLowerCase() === "x" && (isSigning || signatureDone) && (
+      {name.trim().toLowerCase() === "x"  && (isSigning || signatureDone) && (
         <motion.div
           initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
@@ -1568,7 +1591,7 @@ function getNameScale(name, svgWidth = 250) {
   const nameWidth = getNameWidth(name);
   if (nameWidth <= svgWidth) return 1;
   const scale = svgWidth / nameWidth;
-  return Math.max(0.75, scale);
+  return Math.max(0.7, scale);
 }
 
 function generateSignatureLetters(name, svgWidth) {
