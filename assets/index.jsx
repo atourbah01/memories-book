@@ -618,7 +618,7 @@ function TeddyPencil({ isSigning, name, onComplete, scale, signatureDone, letter
   const sigEnd = sigStart + nameWidth;
 
   // map svg-space → world-space (your -460 anchor)
-  const WORLD_BASE_X = isMobile ? -SVG_WIDTH / 2 : -500;
+  const WORLD_BASE_X = -500;
   const WORLD_START_X = WORLD_BASE_X + sigStart;
   const WORLD_END_X = WORLD_BASE_X + sigEnd;
 
