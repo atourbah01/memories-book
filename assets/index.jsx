@@ -401,6 +401,11 @@ export default function MemoryBook() {
 
   <TextInput
     placeholder="Your First Name"
+    styles={{
+      input: {
+        fontSize: 16,
+      },
+    }}
     value={readerName}
     onChange={(e) => setReaderName(e.target.value)}
   />
