@@ -2,46 +2,46 @@ export const memories = [
     {
       id: 1,
       pageNumber: 1,
-      date: "Chapter I: The Beginning",
-      title: "How it all started",
-      story: "Every great story has a first page. This one belongs to us.",
-      pageNote: "We didn’t know it then, but something gentle had already begun. Even the quiet moments carried meaning.",
+      date: "Chapter I: Before Words",
+      title: "A Beginning Without Language",
+      story: "The day our story learned to begin without words",
+      pageNote: "We did not speak, yet our eyes met briefly, long enough for the world to pause. She passed by with composure, confidence and elegance, yet in that moment my heart was caught off guard. That small, wordless moment no more than a second was where it all began",
       color: "#FFF5F5",
       moments: [
         {
           id: "m1",
           title: "The First Look",
-          thumbnail: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300",
-          image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+          thumbnail: "../tunnel.jpg",
+          image: "../tunnel.jpg",
           bubbleStory:
-            "That moment when everything paused. I didn’t know yet, but this was the beginning of something real.",
+            "Our first meeting lasted a second and stayed",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "When did it begin?",
+            answer: "The moment eye contact felt heavier than words"
           }
         },
         {
           id: "m2",
           title: "Soft Silence",
-          thumbnail: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300",
-          image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+          thumbnail: "../silence.avif",
+          image: "../silence.avif",
           bubbleStory:
-            "We didn’t speak much. Somehow, it said everything.",
+            "We didn’t speak but it said everything",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "Why didn't we talk?",
+            answer: "Talking would have admitted what silence was protecting"
           }
         },
         {
           id: "m3",
-          title: "A Shared Smile",
-          thumbnail: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300",
-          image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+          title: "A Pretty Smile",
+          thumbnail: "../smile.jpeg",
+          image: "../smile.jpeg",
           bubbleStory:
-            "You smiled, and something settled gently inside my chest.",
+            "You smiled, and something settled in my chest.",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "Who smiled first?",
+            answer: "It didn’t matter, the moment belonged to both of us"
           }
         },
       ],
@@ -49,46 +49,46 @@ export const memories = [
     {
       id: 2,
       pageNumber: 2,
-      date: "Chapter II: A Sunny Day",
-      title: "Laughter & Coffee",
-      story: "The way you laughed at that silly joke made the world stop for a second.",
-      pageNote: "That day felt lighter somehow, as if laughter had decided to stay a little longer with us.",
+      date: "Chapter II: The Last Light",
+      title: "When The Days Grew Heavy",
+      story: "Where difficulty deepened, and closeness quietly followed",
+      pageNote: "Life grew heavy in ways i hadn’t prepared for, marked by loss and work pressure. Yet within that weight, she began to appear more often checking in, standing close, offering kindness without condition. I didn’t realize then that while everything else was falling apart, something gentle was slowly finding its way to my heart",
       color: "#FFF5F5",
       moments: [
         {
           id: "m1",
-          title: "The First Look",
-          thumbnail: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300",
-          image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+          title: "The Hard Loss",
+          thumbnail: "../loss.jpg",
+          image: "../loss.jpg",
           bubbleStory:
-            "That moment when everything paused. I didn’t know yet, but this was the beginning of something real.",
+            "Some days do not break you but teach you to carry on",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "What changed after the loss?",
+            answer: "The world kept moving but i learned how quiet grief can be"
           }
         },
         {
           id: "m2",
-          title: "Soft Silence",
-          thumbnail: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300",
-          image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+          title: "The calm guardian",
+          thumbnail: "../care.jpeg",
+          image: "../care.jpeg",
           bubbleStory:
-            "We didn’t speak much. Somehow, it said everything.",
+            "Care can arrive without announcing itself",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "What did her presence give me?",
+            answer: "A sense of attention and protection when days were hard"
           }
         },
         {
           id: "m3",
-          title: "A Shared Smile",
-          thumbnail: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300",
-          image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+          title: "Catching Feelings",
+          thumbnail: "../feeling.jpg",
+          image: "../feeling.jpg",
           bubbleStory:
-            "You smiled, and something settled gently inside my chest.",
+            "Feelings sometimes enter unnoticed, then stay",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "What changed inside me?",
+            answer: "Kindness, care and strength found their way to my heart"
           }
         },
       ],
@@ -96,46 +96,46 @@ export const memories = [
     {
       id: 3,
       pageNumber: 3,
-      date: "Chapter III: Under the Stars",
-      title: "Quiet Moments",
-      story: "Sometimes, the silence between us says more than words ever could.",
-      pageNote: "Under the open sky, words felt unnecessary. Being there was enough.",
+      date: "Chapter III: Becoming More",
+      title: "Growth, intention and closeness",
+      story: "What began as admiration became the reason i chose to forge ahead",
+      pageNote: "After loss and feelings arrived, i chose to evolve and refine myself alongside my responsibilities, and the man i became. Her trust made it even more so possible. With each gift, each conversation, we moved closer, smiling so openly each time",
       color: "#FFF5F5",
       moments: [
         {
           id: "m1",
-          title: "The First Look",
-          thumbnail: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=300",
-          image: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e",
+          title: "My Evolution",
+          thumbnail: "../growth.jpeg",
+          image: "../growth.jpeg",
           bubbleStory:
-            "That moment when everything paused. I didn’t know yet, but this was the beginning of something real.",
+            "Growth begins the moment belief is returned",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "Why did i evolve?",
+            answer: "Her belief in me showed me who i can become"
           }
         },
         {
           id: "m2",
-          title: "Soft Silence",
-          thumbnail: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=300",
-          image: "https://images.unsplash.com/photo-1524504388940-b1c1722653e1",
+          title: "Gentle Gifts",
+          thumbnail: "../gifts.jpg",
+          image: "../gifts.jpg",
           bubbleStory:
-            "We didn’t speak much. Somehow, it said everything.",
+            "Affection reveals itself through efforts and actions",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "What did these gestures create?",
+            answer: "Warm surprises closed distances but also sparked a smile"
           }
         },
         {
           id: "m3",
-          title: "A Shared Smile",
-          thumbnail: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=300",
-          image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+          title: "Deep Conversations",
+          thumbnail: "../moment.jpg",
+          image: "../moment.jpg",
           bubbleStory:
-            "You smiled, and something settled gently inside my chest.",
+            "Connection deepens when time is willingly given",
           conversation: {
-            question: "Do you remember this moment?",
-            answer: "I didn’t know then that it would become us."
+            question: "Which moments mattered most to me?",
+            answer: "The conversations she always said yes to and her stay"
           }
         },
       ],
