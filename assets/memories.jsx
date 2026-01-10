@@ -247,7 +247,7 @@ const Page = forwardRef(({ memory, isCover, onViewMore, onSign }, ref) => {
     mt="md"
     style={{
       display: "grid",
-      gridTemplateColumns: "1.1fr 0.9fr",
+      gridTemplateColumns: "1.3fr 0.7fr",
       gap: 16,
       width: "100%",
       //height: "100%",
@@ -256,7 +256,7 @@ const Page = forwardRef(({ memory, isCover, onViewMore, onSign }, ref) => {
   >
     {/* LEFT: Bubble */}
     <Box style={{ 
-      minHeight: 220,
+      minHeight: 420,
       display: "flex",
       flexDirection: "column",
       gap: 12,
@@ -270,7 +270,7 @@ const Page = forwardRef(({ memory, isCover, onViewMore, onSign }, ref) => {
           transition={{ duration: 0.5, ease: "easeOut" }}
           style={{
             position: "absolute",
-            top: -100,
+            top: 0,
             left: 0,
             right: 0,
             zIndex: 3,
