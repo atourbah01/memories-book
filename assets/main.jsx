@@ -28,9 +28,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     >
       <div
         style={{
-          minHeight: "100vh",
-          width: "110vw",
-          backgroundImage: "url('/background.png')",
+          minHeight: "100dvh",
+          width: "110dvw",
+          backgroundImage: "url('../background.png')",
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
