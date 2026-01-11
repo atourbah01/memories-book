@@ -11,14 +11,10 @@
   <body>
     <!-- This is where your React App will load -->
     <div id="root"></div>
-    <audio id="bg-music" autoplay loop="true">
+
+    <audio id="bg-music" loop preload="auto">
       <source src="love.mp3" type="audio/mpeg" />
     </audio>
-    
-    <script>
-      const audio = document.getElementById("bg-music");
-      audio.volume = 0.15; // 15% volume
-    </script>
     
     <!-- This links to your main JavaScript entry file -->
     <script type="module" src="assets/main.jsx"></script>
