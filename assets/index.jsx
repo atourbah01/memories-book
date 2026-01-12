@@ -26,7 +26,6 @@ export default function MemoryBook() {
   const letters = generateSignatureLetters(readerName, 250);
   const [onLastPage, setOnLastPage] = useState(false);
   const [showSignature, setShowSignature] = useState(false);
-  const [pageInteractionLocked, setPageInteractionLocked] = useState(true);
 
 
   useEffect(() => {
@@ -311,7 +310,6 @@ export default function MemoryBook() {
   onUnlockRequest={() => setShowNamePrompt(true)}
   onUnwrapComplete={() => {
     setKeepsakeReady(true);
-    setPageInteractionLocked(false);
   }}
 />
 
@@ -328,7 +326,7 @@ export default function MemoryBook() {
             showCover={true}
             mobileScrollSupport={true}
             swipeDistance={20} 
-            disableFlipByClick={ onUnwrapComplete? false : true}
+            disableFlipByClick={false}
             clickEventForward={false}
             drawShadow={true}
             flippingTime={900}  
@@ -544,7 +542,7 @@ export default function MemoryBook() {
               size="xl" 
               radius="xl"
               onClick={() => {
-                if (isBookLocked || !keepsakeReady || pageInteractionLocked) return;
+                if (isBookLocked || !keepsakeReady) return;
                 setShowSignature(false);
                 setIsSigning(false);
                 book.current?.pageFlip()?.flipPrev()}}
@@ -576,7 +574,7 @@ export default function MemoryBook() {
               size="xl" 
               radius="xl"
               onClick={() => {
-                if (isBookLocked || !keepsakeReady || pageInteractionLocked) return;
+                if (isBookLocked || !keepsakeReady) return;
                 book.current.pageFlip().flipNext()}}
             >
               <IconChevronRight size={30} />
