@@ -328,7 +328,7 @@ export default function MemoryBook() {
             showCover={true}
             mobileScrollSupport={true}
             swipeDistance={20} 
-            disableFlipByClick={false}
+            disableFlipByClick={ onUnwrapComplete? false : true}
             clickEventForward={false}
             drawShadow={true}
             flippingTime={900}  
