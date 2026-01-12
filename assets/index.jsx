@@ -309,7 +309,7 @@ export default function MemoryBook() {
   <RibbonLock
   isLocked={isBookLocked}
   onUnlockRequest={() => setShowNamePrompt(true)}
-  onUnwrapComplete={() => { setKeepsakeReady(true); startBackgroundMusic(); }}
+  onUnwrapComplete={() => { setKeepsakeReady(true); }}
 />
 
 
@@ -1670,14 +1670,5 @@ function generateSignatureLetters(name, svgWidth) {
   return letters;
 }
 
-function startBackgroundMusic() {
-  const audio = document.getElementById("bg-music");
-  if (!audio) return;
-
-  audio.volume = 0.12; // low, romantic volume
-  audio.play().catch(() => {
-    // autoplay protection fallback (safe to ignore)
-  });
-}
 
 
