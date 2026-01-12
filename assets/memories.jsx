@@ -199,7 +199,7 @@ const Page = forwardRef(({ memory, isCover, onViewMore, onSign }, ref) => {
                     textShadow: "0 0 12px rgba(240, 101, 149, 0.25)",
                   }}
                 >
-                  The Long Way from the First Day
+                  The Long Way From The First Day
                 </Title>
 
                 {/* Subtitle */}
