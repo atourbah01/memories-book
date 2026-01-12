@@ -26,7 +26,7 @@ export default function MemoryBook() {
   const letters = generateSignatureLetters(readerName, 250);
   const [onLastPage, setOnLastPage] = useState(false);
   const [showSignature, setShowSignature] = useState(false);
-
+  const [pageInteractionLocked, setPageInteractionLocked] = useState(true);
 
 
   useEffect(() => {
@@ -309,7 +309,14 @@ export default function MemoryBook() {
   <RibbonLock
   isLocked={isBookLocked}
   onUnlockRequest={() => setShowNamePrompt(true)}
-  onUnwrapComplete={() => { setKeepsakeReady(true); }}
+  onUnwrapComplete={() => {
+    setKeepsakeReady(true);
+    setPageInteractionLocked(true); // 🔒 lock immediately
+
+    setTimeout(() => {
+      setPageInteractionLocked(false); // 🔓 unlock after 2s
+    }, 2000);
+  }}
 />
 
 
@@ -325,7 +332,7 @@ export default function MemoryBook() {
             showCover={true}
             mobileScrollSupport={true}
             swipeDistance={20} 
-            disableFlipByClick={(isBookLocked || !keepsakeReady) ? false : true}
+            disableFlipByClick={false}
             clickEventForward={false}
             drawShadow={true}
             flippingTime={900}  
@@ -541,7 +548,7 @@ export default function MemoryBook() {
               size="xl" 
               radius="xl"
               onClick={() => {
-                if (isBookLocked || !keepsakeReady) return;
+                if (isBookLocked || !keepsakeReady || pageInteractionLocked) return;
                 setShowSignature(false);
                 setIsSigning(false);
                 book.current?.pageFlip()?.flipPrev()}}
@@ -573,7 +580,7 @@ export default function MemoryBook() {
               size="xl" 
               radius="xl"
               onClick={() => {
-                if (isBookLocked || !keepsakeReady) return;
+                if (isBookLocked || !keepsakeReady || pageInteractionLocked) return;
                 book.current.pageFlip().flipNext()}}
             >
               <IconChevronRight size={30} />
