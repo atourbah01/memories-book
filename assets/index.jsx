@@ -311,11 +311,7 @@ export default function MemoryBook() {
   onUnlockRequest={() => setShowNamePrompt(true)}
   onUnwrapComplete={() => {
     setKeepsakeReady(true);
-    setPageInteractionLocked(true); // 🔒 lock immediately
-
-    setTimeout(() => {
-      setPageInteractionLocked(false); // 🔓 unlock after 2s
-    }, 2000);
+    setPageInteractionLocked(false);
   }}
 />
 
