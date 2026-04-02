@@ -1,5 +1,6 @@
 # memories-book
-* Recommended to use laptop due to poor mobile optimisation *
+* Recommended to use laptop due to poor mobile optimisation
+
 "A quiet, interactive storybook where moments are gathered with care, memories become pages, and feelings are allowed to exist without explanation."
 
 This project is a React-based web application that explores memory-driven storytelling through interactive design. It focuses on narrative flow, smooth transitions, and modular components to create a digital storybook experience where moments unfold gradually, page by page.
