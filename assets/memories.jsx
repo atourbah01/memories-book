@@ -10,7 +10,6 @@ const Page = forwardRef(({ memory, isCover, onViewMore, onSign }, ref) => {
   const [showViewMore, setShowViewMore] = useState(false);
   const stopFlip = (e) => {
     e.stopPropagation();
-    e.preventDefault();
   };
   React.useEffect(() => {
     if (!activeMoment) {
