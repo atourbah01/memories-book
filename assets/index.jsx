@@ -324,9 +324,9 @@ export default function MemoryBook() {
             maxHeight={1200}
             maxShadowOpacity={0.3}
             showCover={true}
-            mobileScrollSupport={true}
+            mobileScrollSupport={false}
             swipeDistance={20} 
-            disableFlipByClick={false}
+            disableFlipByClick={true}
             clickEventForward={false}
             drawShadow={true}
             flippingTime={900}  
